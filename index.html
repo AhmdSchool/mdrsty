@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=yes">
+<meta name="theme-color" content="#3b6cf6">
+<title>مدرستي — My School</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#eef2f9;--panel:#ffffff;--card:#ffffff;--text:#111a2b;--muted:#6c7c94;
+  --border:#e3e9f3;--accent:#3b6cf6;--accent2:#8b5cf6;--hover:#f4f7fe;
+  --shadow:0 12px 32px rgba(23,43,84,.10);--shelf:#c69c6d;--radius:16px;
+  --topbar-h:56px;
+}
+html[data-theme="dark"]{--bg:#0e1218;--panel:#151b24;--card:#171e29;--text:#e8eef8;--muted:#8ea0b8;--border:#242e3c;--accent:#5b8cff;--accent2:#a78bfa;--hover:#1c2532;--shadow:0 12px 32px rgba(0,0,0,.45);--shelf:#7a5c3a}
+html[data-theme="midnight"]{--bg:#0a1030;--panel:#101740;--card:#131b4d;--text:#e6ecff;--muted:#93a0d6;--border:#20295e;--accent:#4f7dff;--accent2:#00d4ff;--hover:#182156;--shadow:0 12px 32px rgba(0,0,40,.5);--shelf:#2a3a8f}
+html[data-theme="sepia"]{--bg:#f4ecdd;--panel:#fbf6ec;--card:#fffdf7;--text:#3c2f22;--muted:#8a7a66;--border:#e6d9c3;--accent:#b07d3a;--accent2:#8a6b4f;--hover:#f6efe1;--shadow:0 12px 32px rgba(90,70,40,.15);--shelf:#c8a878}
+html[data-theme="forest"]{--bg:#0f1d17;--panel:#152a20;--card:#183226;--text:#e3f3e9;--muted:#87ab97;--border:#22402f;--accent:#2fbf71;--accent2:#8fd14f;--hover:#1d3b2c;--shadow:0 12px 32px rgba(0,30,15,.5);--shelf:#4a3a24}
+html[data-theme="rose"]{--bg:#fdf2f6;--panel:#ffffff;--card:#fff8fb;--text:#3a1f2b;--muted:#9b7a89;--border:#f4dbe6;--accent:#e0508b;--accent2:#8b5cf6;--hover:#fdeef4;--shadow:0 12px 32px rgba(120,40,80,.12);--shelf:#d9a3b8}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);overflow:hidden;display:flex;flex-direction:column;
+  font-family:"Segoe UI",Tahoma,system-ui,-apple-system,"Noto Kufi Arabic",Arial,sans-serif;
+  transition:background .25s,color .25s;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+::-webkit-scrollbar-track{background:transparent}
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+
+/* ============= الشريط العلوي ============= */
+.topbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--panel);
+  border-bottom:1px solid var(--border);z-index:90;box-shadow:0 2px 14px rgba(0,0,0,.05);
+  flex-shrink:0;min-height:var(--topbar-h);position:relative;}
+.icon-btn{background:transparent;border:1px solid var(--border);color:var(--text);
+  width:40px;height:40px;min-width:40px;border-radius:11px;cursor:pointer;font-size:17px;
+  display:flex;align-items:center;justify-content:center;transition:.18s;flex-shrink:0;}
+.icon-btn:hover{background:var(--hover);border-color:var(--accent)}
+.icon-btn:active{transform:scale(.94)}
+.brand{display:flex;align-items:center;gap:7px;font-weight:800;font-size:18px;white-space:nowrap;flex-shrink:0}
+.brand .logo{font-size:22px;filter:drop-shadow(0 2px 6px rgba(59,108,246,.35))}
+.search{flex:1;min-width:0;max-width:560px;margin:0 auto;position:relative;display:flex;align-items:center}
+.search input{width:100%;padding:10px 40px 10px 14px;border-radius:12px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s;}
+html[dir="ltr"] .search input{padding:10px 14px 10px 40px}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,108,246,.13)}
+.search .mag{position:absolute;inset-inline-end:13px;opacity:.55;font-size:15px;pointer-events:none}
+.actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:0 14px;
+  height:40px;border-radius:11px;cursor:pointer;font-size:13.5px;font-family:inherit;font-weight:600;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.18s;white-space:nowrap;}
+.btn:hover{border-color:var(--accent);background:var(--hover)}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;box-shadow:0 6px 16px rgba(59,108,246,.3)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:0 10px;height:34px;font-size:12.5px;border-radius:9px}
+
+.lang-btn{padding:0 10px;min-width:56px;font-size:13px;font-weight:800;letter-spacing:.5px;justify-content:center}
+.lang-btn .flag{font-size:15px}
+
+/* صورة المستخدم */
+.avatar-btn{width:40px;height:40px;min-width:40px;border-radius:50%;border:2px solid var(--border);
+  background:var(--card);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;
+  font-size:19px;transition:.18s;flex-shrink:0;overflow:hidden;color:var(--text);font-family:inherit;}
+.avatar-btn:hover{border-color:var(--accent);transform:scale(1.06);box-shadow:0 4px 14px rgba(59,108,246,.25)}
+.avatar-btn:active{transform:scale(.96)}
+.avatar-btn img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar-btn .initial{font-weight:800;font-size:15px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* ============= الهيكل ============= */
+.shell{flex:1;display:flex;min-height:0;position:relative;overflow:hidden}
+.sidebar{width:280px;flex-shrink:0;background:var(--panel);border-inline-end:1px solid var(--border);
+  overflow-y:auto;padding:14px;display:flex;flex-direction:column;transition:transform .3s ease;
+  overscroll-behavior:contain;}
+.side-title{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.5px;
+  margin:6px 4px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.subj{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:12px;cursor:pointer;
+  margin-bottom:6px;transition:.16s;border:1px solid transparent;position:relative;min-height:44px;}
+.subj:hover{background:var(--hover);border-color:var(--border)}
+.subj.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 8px 18px rgba(59,108,246,.28)}
+.subj.active .subj-count{background:rgba(255,255,255,.25);color:#fff}
+.subj .em{font-size:20px;width:26px;text-align:center;flex-shrink:0}
+.subj .nm{flex:1;font-weight:600;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.subj-count{font-size:11px;background:var(--bg);color:var(--muted);padding:2px 8px;border-radius:20px;font-weight:700;flex-shrink:0}
+.subj .tools{display:none;gap:2px;flex-shrink:0}
+.subj:hover .tools{display:flex}
+.subj .tools button{background:transparent;border:0;cursor:pointer;font-size:12px;opacity:.6;padding:4px 5px;border-radius:5px}
+.subj .tools button:hover{opacity:1;background:rgba(0,0,0,.12)}
+.side-sep{height:1px;background:var(--border);margin:12px 4px}
+
+.content{flex:1;overflow-y:auto;padding:22px 26px 60px;min-width:0;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+/* ============= الرئيسية ============= */
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:22px;
+  padding:30px 26px;color:#fff;margin-bottom:24px;box-shadow:0 16px 40px rgba(59,108,246,.28);
+  position:relative;overflow:hidden;}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;top:-60px;width:220px;height:220px;background:rgba(255,255,255,.13);border-radius:50%}
+.hero h1{font-size:clamp(20px,4vw,27px);margin-bottom:8px;position:relative;z-index:1}
+.hero p{opacity:.92;font-size:clamp(13px,2.2vw,14.5px);line-height:1.7;position:relative;z-index:1}
+.grid-subj{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.subj-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 16px;
+  cursor:pointer;text-align:center;transition:.2s;box-shadow:var(--shadow);position:relative;overflow:hidden;min-height:130px}
+.subj-card:hover{transform:translateY(-5px);border-color:var(--accent)}
+.subj-card:active{transform:translateY(-2px)}
+.subj-card .big{font-size:38px;display:block;margin-bottom:10px}
+.subj-card .ttl{font-weight:700;font-size:15px;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.subj-card .sub{font-size:12px;color:var(--muted)}
+.subj-card.add{border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted)}
+.subj-card.add:hover{color:var(--accent)}
+.subj-card .del-subj{position:absolute;top:8px;inset-inline-start:8px;background:transparent;border:0;
+  cursor:pointer;opacity:0;font-size:13px;transition:.2s;padding:4px}
+.subj-card:hover .del-subj{opacity:.55}
+.subj-card .del-subj:hover{opacity:1}
+
+/* ============= صفحة المادة ============= */
+.subject-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.sh-emoji{font-size:36px;width:62px;height:62px;min-width:62px;display:flex;align-items:center;justify-content:center;
+  background:var(--card);border-radius:18px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.subject-head h2{font-size:clamp(18px,3vw,23px);word-break:break-word}
+.subject-head p{font-size:13px;color:var(--muted);margin-top:3px}
+.sh-actions{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+.tabs{display:flex;gap:8px;border-bottom:2px solid var(--border);margin-bottom:20px;
+  overflow-x:auto;padding-bottom:0;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{height:4px}
+.tab{padding:11px 20px;cursor:pointer;font-weight:700;font-size:14.5px;color:var(--muted);
+  border-bottom:3px solid transparent;margin-bottom:-2px;transition:.18s;white-space:nowrap;
+  display:flex;gap:7px;align-items:center;min-height:44px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.viewswitch{display:flex;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:3px;gap:2px}
+.viewswitch button{background:transparent;border:0;padding:6px 11px;border-radius:8px;cursor:pointer;
+  color:var(--muted);font-size:14px;font-family:inherit;font-weight:600;transition:.16s;min-width:38px;min-height:34px}
+.viewswitch button.active{background:var(--accent);color:#fff}
+
+/* ============= المكتبة ============= */
+.shelf{margin-bottom:26px}
+.shelf-title{font-size:13.5px;color:var(--muted);margin-bottom:9px;display:flex;gap:8px;align-items:center;font-weight:700;flex-wrap:wrap}
+.shelf-title span{background:var(--card);border:1px solid var(--border);padding:1px 8px;border-radius:20px;font-size:11px}
+.shelf-row{display:flex;gap:14px;overflow-x:auto;padding:6px 6px 10px;align-items:flex-end;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.shelf-row::-webkit-scrollbar{height:5px}
+.shelf-bar{height:11px;border-radius:5px;background:linear-gradient(180deg,var(--shelf),transparent);
+  box-shadow:0 8px 16px rgba(0,0,0,.16);margin-top:-4px}
+.book{position:relative;flex:0 0 auto;width:134px;cursor:pointer;transition:transform .22s ease}
+.book:hover{transform:translateY(-9px)}
+.book:active{transform:translateY(-4px)}
+.book-cover{height:172px;border-radius:5px 11px 11px 5px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  font-size:40px;background:linear-gradient(160deg,hsl(var(--h) 62% 56%),hsl(var(--h) 72% 32%));
+  box-shadow:4px 7px 16px rgba(0,0,0,.28),inset -9px 0 14px -9px rgba(0,0,0,.55),inset 3px 0 8px -4px rgba(255,255,255,.35);
+  position:relative;}
+.book-cover::before{content:"";position:absolute;inset-inline-end:0;top:0;bottom:0;width:9px;
+  background:linear-gradient(90deg,rgba(255,255,255,.28),rgba(0,0,0,.28))}
+.book-cover img{width:100%;height:100%;object-fit:cover}
+.book-title{font-size:12px;margin-top:7px;text-align:center;font-weight:600;line-height:1.4;height:34px;overflow:hidden}
+.book-menu{position:absolute;top:5px;inset-inline-end:5px;background:rgba(0,0,0,.5);color:#fff;border:0;
+  border-radius:7px;width:26px;height:26px;cursor:pointer;opacity:0;transition:.2s;font-size:14px;line-height:1}
+.book:hover .book-menu{opacity:1}
+.book-badge{position:absolute;bottom:44px;inset-inline-end:7px;background:rgba(0,0,0,.62);color:#fff;
+  font-size:10px;padding:2px 7px;border-radius:20px;backdrop-filter:blur(4px)}
+
+/* ============= الشبكة والقائمة ============= */
+.grid-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;
+  cursor:pointer;transition:.2s;box-shadow:var(--shadow);position:relative;}
+.card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.card:active{transform:translateY(-2px)}
+.card-thumb{height:128px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden;position:relative}
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:11px 12px}
+.card-body h4{font-size:14px;font-weight:700;margin-bottom:5px;line-height:1.45;height:40px;overflow:hidden}
+.card-meta{font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.card .book-menu{opacity:0}
+.card:hover .book-menu{opacity:1}
+
+.list-items{display:flex;flex-direction:column;gap:8px}
+.row-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);
+  border-radius:13px;padding:11px 14px;cursor:pointer;transition:.16s;min-height:56px}
+.row-item:hover{border-color:var(--accent);background:var(--hover)}
+.row-item:active{transform:scale(.99)}
+.row-item .ri{font-size:24px;width:34px;text-align:center;flex-shrink:0}
+.row-item .rt{flex:1;min-width:0}
+.row-item .rt h4{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-item .rt p{font-size:11.5px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-item .rmenu{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:15px;padding:8px 10px;border-radius:7px}
+.row-item .rmenu:hover{background:var(--bg);color:var(--text)}
+
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state .e{font-size:54px;display:block;margin-bottom:14px;opacity:.7}
+.empty-state h3{font-size:17px;margin-bottom:7px;color:var(--text)}
+.empty-state p{font-size:13.5px;margin-bottom:18px;line-height:1.7}
+
+/* ============= العارض ============= */
+.viewer{position:fixed;inset:0;background:rgba(6,10,18,.9);backdrop-filter:blur(7px);z-index:300;
+  display:none;flex-direction:column}
+.viewer.open{display:flex}
+.viewer-head{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--panel);
+  border-bottom:1px solid var(--border);flex-wrap:wrap}
+.viewer-head h3{font-size:15.5px;flex:1;min-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.viewer-body{flex:1;display:flex;min-height:0}
+.viewer-media{flex:1;min-width:0;display:flex;flex-direction:column;background:#05070c;padding:8px;position:relative}
+.viewer-media .media-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.viewer-media video{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;border-radius:8px;background:#000}
+.viewer-media iframe{width:100%;height:100%;border:0;background:#fff;border-radius:9px}
+.viewer-media img{max-width:100%;max-height:100%;object-fit:contain;border-radius:9px}
+.viewer-media audio{width:80%}
+.viewer-media .pdf-tools{display:flex;gap:8px;justify-content:center;padding:6px 4px 4px;flex-wrap:wrap}
+.viewer-media .pdf-tools a{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#dfe7f5;padding:8px 14px;border-radius:9px;font-size:12.5px;text-decoration:none;font-weight:600;
+  cursor:pointer;transition:.18s;min-height:36px;display:inline-flex;align-items:center}
+.viewer-media .pdf-tools a:hover{background:rgba(255,255,255,.2);color:#fff}
+.unsupported{color:#cfd8e6;text-align:center;padding:30px}
+.unsupported a{color:#7fa8ff}
+
+.notes-panel{width:335px;flex-shrink:0;background:var(--panel);border-inline-start:1px solid var(--border);
+  display:flex;flex-direction:column;padding:12px;gap:9px;overflow:hidden}
+.notes-panel h4{font-size:14px;display:flex;align-items:center;gap:7px}
+.notes-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-inline-start:3px}
+.note{background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:9px 11px}
+.note-txt{font-size:13.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.note-meta{display:flex;align-items:center;gap:7px;margin-top:7px;font-size:10.5px;color:var(--muted);flex-wrap:wrap}
+.chip{background:var(--accent);color:#fff;border:0;padding:4px 10px;border-radius:20px;cursor:pointer;font-size:11px;font-family:inherit}
+.note .del{background:transparent;border:0;cursor:pointer;margin-inline-start:auto;opacity:.5;font-size:14px;padding:3px}
+.note .del:hover{opacity:1}
+.notes-panel textarea{width:100%;min-height:64px;resize:vertical;border-radius:11px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text);padding:9px 11px;font-family:inherit;font-size:13.5px;outline:none;}
+.notes-panel textarea:focus{border-color:var(--accent)}
+.note-add-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.note-add-row label{font-size:12px;color:var(--muted);display:flex;gap:5px;align-items:center;cursor:pointer}
+
+/* ============= وضع المذاكرة ============= */
+.study{position:fixed;inset:0;background:var(--bg);z-index:400;display:none;flex-direction:column}
+.study.open{display:flex}
+.study-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--panel);
+  border-bottom:1px solid var(--border);flex-wrap:wrap}
+.study-head select{padding:8px 11px;border-radius:10px;border:1px solid var(--border);background:var(--card);
+  color:var(--text);font-family:inherit;font-size:13.5px;outline:none;max-width:270px;cursor:pointer;min-height:40px;flex:1;min-width:140px}
+.study-head strong{font-size:15px}
+.study-body{flex:1;display:flex;min-height:0;gap:8px;padding:8px}
+.study .pane{flex:1;min-width:0;background:var(--card);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;display:flex;align-items:center;justify-content:center}
+.study .pane video,.study .pane img{width:100%;height:100%;object-fit:contain;background:#000}
+.study .pane iframe{width:100%;height:100%;border:0;background:#fff}
+.study .pane .ph{color:var(--muted);text-align:center;font-size:14px;padding:20px}
+
+/* ============= النوافذ ============= */
+.modal{position:fixed;inset:0;background:rgba(8,12,20,.6);backdrop-filter:blur(4px);z-index:500;
+  display:none;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.modal.open{display:flex}
+.modal-card{background:var(--panel);border-radius:20px;padding:24px;width:100%;max-width:460px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);border:1px solid var(--border);max-height:90vh;overflow-y:auto;
+  animation:pop .22s ease}
+@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-card h3{font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:600}
+.field input[type=text],.field select,.field input[type=file]{width:100%;padding:11px 13px;border-radius:11px;
+  border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--accent)}
+.emoji-pick{display:flex;flex-wrap:wrap;gap:6px}
+.emoji-pick button{width:40px;height:40px;font-size:20px;border-radius:11px;border:1px solid var(--border);
+  background:var(--bg);cursor:pointer;transition:.15s;padding:0}
+.emoji-pick button:hover{border-color:var(--accent);transform:scale(1.08)}
+.emoji-pick button.sel{border-color:var(--accent);background:var(--hover);box-shadow:0 0 0 2px var(--accent) inset}
+.modal-actions{display:flex;gap:9px;justify-content:flex-start;margin-top:20px;flex-wrap:wrap}
+
+/* ============= لوحة المظاهر ============= */
+.theme-pop{position:fixed;top:62px;inset-inline-start:16px;background:var(--panel);border:1px solid var(--border);
+  border-radius:16px;padding:12px;box-shadow:0 18px 44px rgba(0,0,0,.25);z-index:150;display:none;width:240px;max-width:calc(100vw - 32px)}
+.theme-pop.open{display:block;animation:pop .18s ease}
+.theme-pop .tp-title{font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:10px}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.theme-opt{display:flex;align-items:center;gap:8px;padding:9px;border-radius:11px;border:1px solid var(--border);
+  cursor:pointer;background:var(--bg);font-size:12.5px;font-family:inherit;color:var(--text);transition:.15s;font-weight:600}
+.theme-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+.theme-opt.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.swatch{width:22px;height:22px;border-radius:7px;flex-shrink:0;border:1px solid rgba(0,0,0,.15)}
+html[lang="en"] .theme-pop{inset-inline-start:auto;inset-inline-end:16px}
+
+/* ============= قائمة السياق ============= */
+.ctx-menu{position:fixed;background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:6px;
+  box-shadow:0 16px 40px rgba(0,0,0,.28);z-index:600;display:none;min-width:200px;max-width:calc(100vw - 20px)}
+.ctx-menu.open{display:block;animation:pop .14s ease}
+.ctx-menu button{display:flex;align-items:center;gap:9px;width:100%;padding:10px 11px;border:0;
+  background:transparent;color:var(--text);cursor:pointer;border-radius:9px;font-family:inherit;
+  font-size:13.5px;text-align:start;transition:.13s;min-height:40px}
+.ctx-menu button:hover{background:var(--hover)}
+.ctx-menu button.danger{color:#e5484d}
+.ctx-menu .sep{height:1px;background:var(--border);margin:5px 4px}
+
+/* ============= عام ============= */
+.toast{position:fixed;bottom:22px;inset-inline-start:50%;transform:translate(-50%,80px);
+  background:var(--panel);border:1px solid var(--border);padding:12px 20px;border-radius:13px;
+  box-shadow:0 16px 40px rgba(0,0,0,.3);z-index:900;font-size:14px;font-weight:600;
+  opacity:0;transition:.3s;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
+html[dir="rtl"] .toast{transform:translate(50%,80px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+html[dir="rtl"] .toast.show{transform:translate(50%,0)}
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:70;display:none}
+.backdrop.show{display:block}
+.drag-over{position:fixed;inset:0;background:rgba(59,108,246,.15);z-index:250;display:flex;
+  align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);
+  pointer-events:none;padding:20px;text-align:center;backdrop-filter:blur(2px)}
+
+.info-box{font-size:12px;color:var(--muted);line-height:2;padding:0 6px}
+.info-box .row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px dashed var(--border);gap:6px}
+.info-box .row:last-child{border-bottom:0}
+.info-box .row .lbl{opacity:.9}
+.info-box .row .val{color:var(--text);font-weight:700}
+.info-box .row .val.accent{color:var(--accent)}
+.info-box .row .val.streak{color:#f59e0b}
+
+.credit{margin-top:auto;padding:16px 8px 10px;text-align:center;border-top:1px solid var(--border);position:relative;flex-shrink:0}
+.credit::before{content:"";position:absolute;top:-1px;inset-inline-start:20%;inset-inline-end:20%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);border-radius:2px;opacity:.7}
+.credit .brand-name{display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:900;font-size:16px;letter-spacing:.7px;font-family:"Segoe UI",Arial,sans-serif}
+.credit .brand-name .dot{width:6px;height:6px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-text-fill-color:initial;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.credit small{display:block;font-size:10.5px;color:var(--muted);margin-top:4px;letter-spacing:.3px}
+
+/* ============= بروفايل ============= */
+.profile-avatar-wrap{position:relative;width:130px;height:130px;margin:0 auto 20px}
+.profile-avatar-big{
+  width:130px;height:130px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:56px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 10px 30px rgba(59,108,246,.35);color:#fff;
+  border:4px solid var(--panel);overflow:hidden;cursor:pointer;transition:.2s;position:relative}
+.profile-avatar-big img{width:100%;height:100%;object-fit:cover;display:block}
+.profile-avatar-big:hover{transform:scale(1.03)}
+.profile-avatar-big .overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;transition:.2s;font-size:12px;gap:4px;font-weight:600}
+.profile-avatar-big:hover .overlay{opacity:1}
+.profile-avatar-big .overlay .cam{font-size:26px}
+.upload-hint{text-align:center;font-size:11.5px;color:var(--muted);margin-top:-10px;margin-bottom:14px}
+.avatar-tabs{display:flex;gap:6px;margin-bottom:12px;background:var(--bg);padding:4px;border-radius:12px}
+.avatar-tabs button{flex:1;padding:9px;border:0;background:transparent;border-radius:9px;
+  cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);transition:.18s;min-height:38px}
+.avatar-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(59,108,246,.3)}
+
+/* ============= استجابة كاملة ============= */
+@media(max-width:1024px){
+  .sidebar{width:250px}
+  .content{padding:18px 20px 60px}
+  .grid-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+}
+
+@media(max-width:880px){
+  :root{--topbar-h:auto}
+  .topbar{flex-wrap:wrap;padding:8px 10px;gap:6px}
+  .brand{font-size:16px;order:1}
+  .brand .logo{font-size:20px}
+  #menuBtn{order:0}
+  .actions{order:2;margin-inline-start:auto}
+  .search{order:3;flex-basis:100%;max-width:none;margin:4px 0 0}
+  .search input{font-size:14px;padding:11px 40px 11px 14px}
+  html[dir="ltr"] .search input{padding:11px 14px 11px 40px}
+  .btn.lang-btn{padding:0 8px;min-width:48px}
+  .btn{padding:0 10px}
+  .actions .lbl{display:none}
+  .sidebar{position:fixed;top:0;bottom:0;width:290px;max-width:88vw;z-index:100;
+    transform:translateX(105%);box-shadow:-10px 0 40px rgba(0,0,0,.25);border-inline-end:0;
+    transition:transform .3s cubic-bezier(.4,0,.2,1)}
+  html[dir="ltr"] .sidebar{transform:translateX(-105%);box-shadow:10px 0 40px rgba(0,0,0,.25)}
+  .sidebar.open{transform:translateX(0) !important}
+  .content{padding:14px 12px 80px}
+  .hero{padding:22px 18px;border-radius:18px;margin-bottom:18px}
+  .hero h1{font-size:20px}
+  .hero p{font-size:13px}
+  .grid-subj{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .subj-card{padding:16px 12px;border-radius:16px;min-height:118px}
+  .subj-card .big{font-size:32px;margin-bottom:8px}
+  .subj-card .ttl{font-size:13.5px}
+  .grid-items{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .card-thumb{height:110px;font-size:36px}
+  .card-body h4{font-size:13.5px;height:38px}
+  .subject-head{gap:10px;margin-bottom:14px}
+  .sh-emoji{font-size:28px;width:52px;height:52px;min-width:52px;border-radius:16px}
+  .sh-actions{width:100%;margin-inline-start:0;margin-top:6px}
+  .tabs{gap:4px;margin-bottom:14px}
+  .tab{padding:10px 14px;font-size:13.5px}
+  .book{width:118px}
+  .book-cover{height:152px;font-size:36px}
+  .viewer-body{flex-direction:column}
+  .notes-panel{width:auto;height:45%;min-height:220px;border-inline-start:0;border-top:1px solid var(--border)}
+  .viewer-media{min-height:50%}
+  .study-body{flex-direction:column}
+  .study-head select{max-width:none;width:100%}
+  .modal{padding:12px;align-items:flex-end}
+  .modal-card{border-radius:20px 20px 0 0;padding:20px;max-height:92vh}
+  .modal-actions .btn{flex:1;min-height:44px}
+  .info-box{line-height:1.9}
+  .info-box .row{padding:4px 0}
+}
+
+@media(max-width:520px){
+  .brand span:not(.logo){display:none}
+  .brand{font-size:15px}
+  .icon-btn,.avatar-btn{width:38px;height:38px;min-width:38px}
+  .btn{height:38px;font-size:13px;padding:0 10px}
+  .btn.sm{height:32px;font-size:12px}
+  .grid-subj{grid-template-columns:1fr 1fr}
+  .grid-items{grid-template-columns:1fr 1fr}
+  .content{padding:12px 10px 90px}
+  .hero{padding:18px 14px;border-radius:16px}
+  .hero h1{font-size:18px}
+  .hero p{font-size:12.5px;line-height:1.6}
+  .side-title{font-size:11.5px}
+  .shelf-title{font-size:12.5px}
+  .book{width:104px}
+  .book-cover{height:136px;font-size:32px}
+  .book-title{font-size:11px;height:30px}
+  .card-body h4{font-size:13px}
+  .row-item{padding:10px 12px;gap:10px}
+  .row-item .ri{font-size:22px;width:30px}
+  .viewer-head h3{font-size:14px}
+  .viewer-head .btn.sm{padding:0 8px;height:32px;font-size:11.5px}
+  .notes-panel{padding:10px}
+  .profile-avatar-wrap,.profile-avatar-big{width:110px;height:110px}
+  .profile-avatar-big{font-size:48px}
+  .modal-card{padding:18px;border-radius:18px 18px 0 0}
+  .modal-card h3{font-size:16px}
+  .emoji-pick button{width:38px;height:38px;font-size:19px}
+}
+
+@media(max-width:360px){
+  .grid-subj,.grid-items{grid-template-columns:1fr}
+  .actions .btn:not(.lang-btn){display:none}
+  .actions #studyBtn{display:inline-flex}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" title="Menu">☰</button>
+  <div class="brand"><span class="logo">🎓</span><span data-i18n="brand">مدرستي</span></div>
+  <div class="search">
+    <input id="searchInput" type="text" data-i18n-ph="search" placeholder="ابحث...">
+    <span class="mag">🔍</span>
+  </div>
+  <div class="actions">
+    <button class="btn" id="studyBtn" title="Study"><span>📚</span><span class="lbl" data-i18n="study">ذاكر</span></button>
+    <button class="btn lang-btn" id="langBtn" title="Language"><span class="flag">🌐</span><span id="langLabel">EN</span></button>
+    <button class="btn" id="themeBtn" title="Theme"><span>🎨</span><span class="lbl" data-i18n="theme">المصدر</span></button>
+    <button class="avatar-btn" id="userBtn" title="Profile"><span id="userAvatarInner">👤</span></button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-title">
+      <span data-i18n="subjects">📚 المواد الدراسية</span>
+      <button class="btn sm ghost" id="addSubjectBtn"><span>➕</span> <span data-i18n="addSubject">مادة</span></button>
+    </div>
+    <div id="subjList"></div>
+    <div class="side-sep"></div>
+    <div class="side-title"><span data-i18n="quickTools">⚡ أدوات سريعة</span></div>
+    <div class="subj" data-quick="all"><span class="em">🗂️</span><span class="nm" data-i18n="allMedia">كل الوسائط</span></div>
+    <div class="subj" data-quick="videos"><span class="em">🎬</span><span class="nm" data-i18n="allVideos">كل الفيديوهات</span></div>
+    <div class="subj" data-quick="pdfs"><span class="em">📄</span><span class="nm" data-i18n="allPdfs">كل ملفات PDF</span></div>
+    <div class="subj" data-quick="notes"><span class="em">🗒️</span><span class="nm" data-i18n="allNotes">كل الملاحظات</span></div>
+
+    <div class="side-sep"></div>
+    <div class="side-title"><span data-i18n="info">💾 معلومات</span></div>
+    <div class="info-box" id="statsBox"></div>
+
+    <div class="credit">
+      <span class="brand-name"><span class="dot"></span>AhmdSchool</span>
+      <small data-i18n="copyright">© جميع الحقوق محفوظة — حقوق الابتكار</small>
+    </div>
+  </aside>
+
+  <main class="content" id="view"></main>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+
+<div class="theme-pop" id="themePop">
+  <div class="tp-title" data-i18n="themeTitle">🎨 اختر مظهر الموقع</div>
+  <div class="theme-grid" id="themeGrid"></div>
+</div>
+
+<div class="ctx-menu" id="ctxMenu"></div>
+
+<div class="viewer" id="viewer">
+  <div class="viewer-head">
+    <h3 id="viewerTitle">—</h3>
+    <button class="btn sm" id="shareImgBtn"><span>🖼️</span> <span data-i18n="shareImage">صورة</span></button>
+    <button class="btn sm" id="shareMhtBtn"><span>📧</span> <span data-i18n="shareMht">MHT</span></button>
+    <button class="btn sm" id="shareNativeBtn"><span>🔗</span> <span data-i18n="shareNative">مشاركة</span></button>
+    <button class="btn sm" id="renameBtn"><span>✏️</span></button>
+    <button class="icon-btn" id="closeViewer" title="Close">✕</button>
+  </div>
+  <div class="viewer-body">
+    <div class="viewer-media" id="viewerMedia"></div>
+    <aside class="notes-panel">
+      <h4><span>🗒️</span> <span data-i18n="notes">الملاحظات والشروحات</span></h4>
+      <div class="notes-list" id="notesList"></div>
+      <textarea id="noteInput" data-i18n-ph="noteInputPh" placeholder="اكتب ملاحظتك..."></textarea>
+      <div class="note-add-row">
+        <label><input type="checkbox" id="linkTime"> <span data-i18n="linkTime">⏱️ ربط بالتوقيت</span></label>
+        <button class="btn primary sm" id="addNoteBtn" style="margin-inline-start:auto"><span data-i18n="addNote">إضافة</span></button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="study" id="study">
+  <div class="study-head">
+    <strong><span>📚</span> <span data-i18n="studyMode">وضع المذاكرة</span></strong>
+    <select id="studyVideoSel"><option value="" data-i18n="chooseVideo">— اختر فيديو —</option></select>
+    <select id="studyPdfSel"><option value="" data-i18n="choosePdf">— اختر ملف PDF —</option></select>
+    <button class="btn sm" id="studySwap"><span data-i18n="swap">تبديل</span></button>
+    <button class="btn sm" id="studyLayout"><span data-i18n="layout">تقسيم</span></button>
+    <button class="icon-btn" id="studyClose" style="margin-inline-start:auto">✕</button>
+  </div>
+  <div class="study-body">
+    <div class="pane" id="studyVideoPane"><div class="ph">🎬</div></div>
+    <div class="pane" id="studyPdfPane"><div class="ph">📄</div></div>
+  </div>
+</div>
+
+<div class="modal" id="subjModal">
+  <div class="modal-card">
+    <h3><span>➕</span> <span data-i18n="addSubjectTitle">إضافة مادة دراسية</span></h3>
+    <div class="field">
+      <label data-i18n="subjectName">اسم المادة</label>
+      <input type="text" id="smName" data-i18n-ph="subjectNamePh" placeholder="مثال: فيزياء...">
+    </div>
+    <div class="field">
+      <label data-i18n="icon">الأيقونة</label>
+      <div class="emoji-pick" id="emojiPick"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" id="smSave" data-i18n="saveSubject">إضافة المادة</button>
+      <button class="btn" id="smCancel" data-i18n="cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="addModal">
+  <div class="modal-card">
+    <h3><span>📥</span> <span data-i18n="addMediaTitle">إضافة وسائط</span></h3>
+    <div class="field">
+      <label data-i18n="titleOpt">العنوان (اختياري)</label>
+      <input type="text" id="amTitle" data-i18n-ph="titleOptPh" placeholder="مثال: مراجعة الباب الأول">
+    </div>
+    <div class="field">
+      <label data-i18n="shelfLabel">الرف / التصنيف</label>
+      <select id="amShelf"></select>
+    </div>
+    <div class="field">
+      <label data-i18n="chooseFiles">اختر الملفات</label>
+      <input type="file" id="amFiles" multiple>
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" id="amSave" data-i18n="add">إضافة</button>
+      <button class="btn" id="amCancel" data-i18n="cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- نافذة الملف الشخصي -->
+<div class="modal" id="profileModal">
+  <div class="modal-card">
+    <h3><span>👤</span> <span data-i18n="profile">الملف الشخصي</span></h3>
+
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar-big" id="profileAvatarBig">
+        <span>👤</span>
+        <div class="overlay">
+          <span class="cam">📷</span>
+          <span data-i18n="changePhoto">تغيير الصورة</span>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="avatarFileInput" accept="image/*" hidden>
+    <div class="upload-hint" data-i18n="uploadHint">اضغط على الصورة لرفع صورة من جهازك</div>
+
+    <div class="avatar-tabs">
+      <button data-tab="photo" class="active" data-i18n="tabPhoto">📷 صورة</button>
+      <button data-tab="emoji" data-i18n="tabEmoji">😀 رمزية</button>
+    </div>
+
+    <div id="avatarPhotoSection">
+      <div class="field">
+        <button class="btn" id="uploadPhotoBtn" style="width:100%;min-height:44px"><span>📁</span> <span data-i18n="choosePhoto">اختر صورة من جهازك</span></button>
+      </div>
+      <div class="field">
+        <button class="btn" id="removePhotoBtn" style="width:100%;min-height:44px;display:none"><span>🗑️</span> <span data-i18n="removePhoto">حذف الصورة</span></button>
+      </div>
+    </div>
+
+    <div id="avatarEmojiSection" style="display:none">
+      <div class="field">
+        <label data-i18n="avatar">الصورة الرمزية</label>
+        <div class="emoji-pick" id="avatarPick"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label data-i18n="userName">الاسم</label>
+      <input type="text" id="userNameInput" data-i18n-ph="userNamePh" placeholder="اكتب اسمك...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" id="saveProfileBtn" data-i18n="saveProfile">حفظ</button>
+      <button class="btn" id="cancelProfileBtn" data-i18n="cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   مدرستي — My School
+   ========================================================= */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const fmtSize = b => !b ? '' : b < 1024 ? b + ' B' : b < 1048576 ? (b/1024).toFixed(1) + ' KB' : b < 1073741824 ? (b/1048576).toFixed(1) + ' MB' : (b/1073741824).toFixed(2) + ' GB';
+const fmtTime = s => { s = Math.floor(s||0); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), ss = s%60;
+  return (h ? h + ':' + String(m).padStart(2,'0') : m) + ':' + String(ss).padStart(2,'0'); };
+const fmtDate = t => {
+  const loc = currentLang === 'en' ? 'en-US' : 'ar-EG';
+  return new Date(t).toLocaleDateString(loc, {year:'numeric', month:'short', day:'numeric'});
+};
+const safeName = n => String(n).replace(/[\\/:*?"<>|]+/g,'_').slice(0,80);
+function hashHue(str){ let h = 0; for (let i=0;i<str.length;i++) h = (h*31 + str.charCodeAt(i)) % 360; return h; }
+function toast(msg, ms = 2200){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._tm); t._tm = setTimeout(()=>t.classList.remove('show'), ms);
+}
+
+/* =========================================================
+   نظام الترجمة
+   ========================================================= */
+const I18N = {
+  ar: {
+    brand:'مدرستي', search:'ابحث...',
+    study:'ذاكر', theme:'المصدر',
+    subjects:'📚 المواد الدراسية', addSubject:'مادة',
+    quickTools:'⚡ أدوات سريعة',
+    allMedia:'كل الوسائط', allVideos:'كل الفيديوهات', allPdfs:'كل ملفات PDF', allNotes:'كل الملاحظات',
+    info:'💾 معلومات',
+    subjCount:'📦 المواد', itemCount:'🗂️ الوسائط', noteCount:'🗒️ الملاحظات', size:'💾 الحجم',
+    todayStudy:'⏱️ مذاكرة اليوم', totalStudy:'📊 إجمالي المذاكرة', streak:'🔥 أيام متتالية', day:'يوم',
+    welcomeTitle:'👋 أهلًا بك في مدرستي',
+    welcomeDesc:'منصتك التعليمية الخاصة التي تعمل بالكامل بدون إنترنت.',
+    welcomeDesc2:'نظّم موادك، أضف الفيديوهات والكتب والمذكرات والامتحانات، وذاكر بذكاء.',
+    mySubjects:'📚 موادي الدراسية', addSubjectCard:'إضافة مادة', addSubjectCardSub:'عربي، فيزياء، برمجة...',
+    noSubjects:'لا توجد مواد بعد.<br>اضغط «➕ مادة» لإضافة أول مادة.',
+    tabVideo:'فيديو', tabBooks:'كتب', tabSummary:'مذكرات', tabExams:'امتحانات',
+    itemsIn:'في', items:'عنصر',
+    newShelf:'🗂️ رف جديد', addMedia:'➕ إضافة وسائط',
+    emptyTitle:'لا يوجد محتوى في هذا التبويب بعد',
+    emptyDesc:'اضغط «➕ إضافة وسائط» لإضافة فيديوهات أو كتب.<br>يمكنك أيضًا سحب الملفات وإفلاتها هنا.',
+    emptyBtn:'➕ إضافة وسائط الآن',
+    noResults:'لا توجد نتائج', tryOther:'جرّب كلمة بحث أخرى',
+    searchResults:'🔍 نتائج البحث', result:'نتيجة',
+    addSubjectTitle:'إضافة مادة دراسية', subjectName:'اسم المادة', subjectNamePh:'مثال: فيزياء...',
+    icon:'الأيقونة', saveSubject:'إضافة المادة', cancel:'إلغاء',
+    addMediaTitle:'إضافة وسائط', titleOpt:'العنوان (اختياري)', titleOptPh:'مثال: مراجعة الباب الأول',
+    shelfLabel:'الرف / التصنيف', chooseFiles:'اختر الملفات', add:'إضافة',
+    notes:'الملاحظات والشروحات', noteInputPh:'اكتب ملاحظتك...',
+    linkTime:'⏱️ ربط بالتوقيت', addNote:'إضافة',
+    shareImage:'صورة', shareMht:'MHT', shareNative:'مشاركة', rename:'تعديل',
+    openNew:'↗ فتح في نافذة جديدة', download:'⬇️ تحميل الملف',
+    unsupported:'هذا النوع لا يُعرض مباشرة داخل المتصفح.',
+    studyMode:'وضع المذاكرة', chooseVideo:'— اختر فيديو —', choosePdf:'— اختر ملف PDF —',
+    swap:'🔁 تبديل', layout:'⬍ تقسيم',
+    themeTitle:'🎨 اختر مظهر الموقع (٦ مظاهر)',
+    profile:'الملف الشخصي', userName:'الاسم', userNamePh:'اكتب اسمك...', avatar:'الصورة الرمزية', saveProfile:'حفظ',
+    changePhoto:'تغيير الصورة', uploadHint:'اضغط على الصورة لرفع صورة من جهازك',
+    tabPhoto:'📷 صورة', tabEmoji:'😀 رمزية', choosePhoto:'اختر صورة من جهازك', removePhoto:'حذف الصورة',
+    copyright:'© جميع الحقوق محفوظة — حقوق الابتكار',
+    themeLight:'نهاري', themeDark:'داكن', themeMidnight:'ليلي أزرق', themeSepia:'ورقي', themeForest:'غابة', themeRose:'وردي',
+    subjectAdded:'تمت إضافة مادة', subjectDeleted:'تم حذف المادة', subjectRenamed:'تم التعديل',
+    mediaAdded:'تمت الإضافة بنجاح', mediaDeleted:'تم الحذف', noteSaved:'تم حفظ الملاحظة', noteDeleted:'تم حذف الملاحظة',
+    shelfCreated:'تم إنشاء الرف', themeChanged:'تم تغيير المظهر', langChanged:'تم تغيير اللغة',
+    profileSaved:'تم حفظ الملف الشخصي', photoUploaded:'تم رفع الصورة', photoRemoved:'تم حذف الصورة',
+    confirmDeleteSubject:'سيتم حذف هذه المادة وكل محتواها نهائيًا. متأكد؟',
+    confirmDeleteItem:'حذف هذا العنصر نهائيًا؟',
+    selectSubjectFirst:'اختر مادة أولًا', chooseAtLeastOne:'اختر ملفًا واحدًا على الأقل',
+    writeNoteFirst:'اكتب الملاحظة أولًا', addingFiles:'جارٍ إضافة', files:'ملف...',
+    imageCreated:'تم إنشاء صورة المشاركة', mhtCreated:'تم إنشاء ملف MHT',
+    preparingMht:'جارٍ تجهيز ملف MHT...', newShelfPrompt:'اسم الرف / التصنيف الجديد:',
+    renameItemPrompt:'العنوان الجديد:', movePrompt:'اسم الرف (اتركه فارغًا لإزالته):',
+    dropFilesHere:'📥 أفلت الملفات هنا لإضافتها',
+    subjectNamePrompt:'اسم المادة الجديد:'
+  },
+  en: {
+    brand:'My School', search:'Search...',
+    study:'Study', theme:'Theme',
+    subjects:'📚 Subjects', addSubject:'Subject',
+    quickTools:'⚡ Quick Tools',
+    allMedia:'All Media', allVideos:'All Videos', allPdfs:'All PDFs', allNotes:'All Notes',
+    info:'💾 Information',
+    subjCount:'📦 Subjects', itemCount:'🗂️ Media', noteCount:'🗒️ Notes', size:'💾 Size',
+    todayStudy:'⏱️ Today', totalStudy:'📊 Total Study', streak:'🔥 Day Streak', day:'days',
+    welcomeTitle:'👋 Welcome to My School',
+    welcomeDesc:'Your personal educational platform that works fully offline.',
+    welcomeDesc2:'Organize your subjects, add videos, books, summaries, and exams.',
+    mySubjects:'📚 My Subjects', addSubjectCard:'Add Subject', addSubjectCardSub:'Arabic, Physics...',
+    noSubjects:'No subjects yet.<br>Click "➕ Subject" to add your first one.',
+    tabVideo:'Videos', tabBooks:'Books', tabSummary:'Summaries', tabExams:'Exams',
+    itemsIn:'in', items:'items',
+    newShelf:'🗂️ New Shelf', addMedia:'➕ Add Media',
+    emptyTitle:'No content in this tab yet',
+    emptyDesc:'Click "➕ Add Media" to add videos or books.<br>You can also drag and drop files here.',
+    emptyBtn:'➕ Add Media Now',
+    noResults:'No results', tryOther:'Try a different search term',
+    searchResults:'🔍 Search results', result:'results',
+    addSubjectTitle:'Add New Subject', subjectName:'Subject Name', subjectNamePh:'e.g., Physics...',
+    icon:'Icon', saveSubject:'Add Subject', cancel:'Cancel',
+    addMediaTitle:'Add Media', titleOpt:'Title (optional)', titleOptPh:'e.g., Chapter 1 Review',
+    shelfLabel:'Shelf / Category', chooseFiles:'Choose files', add:'Add',
+    notes:'Notes & Explanations', noteInputPh:'Write your note...',
+    linkTime:'⏱️ Link to current time', addNote:'Add',
+    shareImage:'Image', shareMht:'MHT', shareNative:'Share', rename:'Rename',
+    openNew:'↗ Open in new tab', download:'⬇️ Download file',
+    unsupported:'This file type cannot be displayed directly in the browser.',
+    studyMode:'Study Mode', chooseVideo:'— Choose a video —', choosePdf:'— Choose a PDF —',
+    swap:'🔁 Swap', layout:'⬍ Layout',
+    themeTitle:'🎨 Choose Site Theme (6 themes)',
+    profile:'Profile', userName:'Name', userNamePh:'Enter your name...', avatar:'Avatar', saveProfile:'Save',
+    changePhoto:'Change photo', uploadHint:'Click the image to upload from your device',
+    tabPhoto:'📷 Photo', tabEmoji:'😀 Emoji', choosePhoto:'Choose photo from device', removePhoto:'Remove photo',
+    copyright:'© All rights reserved — Innovation Rights',
+    themeLight:'Light', themeDark:'Dark', themeMidnight:'Midnight', themeSepia:'Sepia', themeForest:'Forest', themeRose:'Rose',
+    subjectAdded:'Subject added:', subjectDeleted:'Subject deleted', subjectRenamed:'Renamed',
+    mediaAdded:'Added successfully', mediaDeleted:'Deleted', noteSaved:'Note saved', noteDeleted:'Note deleted',
+    shelfCreated:'Shelf created', themeChanged:'Theme changed', langChanged:'Language changed',
+    profileSaved:'Profile saved', photoUploaded:'Photo uploaded', photoRemoved:'Photo removed',
+    confirmDeleteSubject:'This subject and all its content will be permanently deleted. Are you sure?',
+    confirmDeleteItem:'Delete this item permanently?',
+    selectSubjectFirst:'Select a subject first', chooseAtLeastOne:'Choose at least one file',
+    writeNoteFirst:'Write a note first', addingFiles:'Adding', files:'file(s)...',
+    imageCreated:'Share image created', mhtCreated:'MHT file created',
+    preparingMht:'Preparing MHT file...', newShelfPrompt:'New shelf / category name:',
+    renameItemPrompt:'New title:', movePrompt:'Shelf name (leave empty to remove):',
+    dropFilesHere:'📥 Drop files here to add them',
+    subjectNamePrompt:'New subject name:'
+  }
+};
+let currentLang = localStorage.getItem('madrasati-lang') || 'ar';
+function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.ar[key] || key; }
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('madrasati-lang', lang);
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  document.title = (lang === 'ar') ? 'مدرستي — منصتي التعليمية' : 'My School — Educational Platform';
+  $('#langLabel').textContent = (lang === 'ar') ? 'EN' : 'ع';
+  $('#langBtn').title = (lang === 'ar') ? 'Switch to English' : 'التبديل إلى العربية';
+  $$('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+  $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  renderSidebar(); renderMain(); updateStats(); initThemes(); renderUserAvatar();
+  toast(t('langChanged') + ' ✓');
+}
+
+/* =========================================================
+   الملف الشخصي (مع رفع صورة)
+   ========================================================= */
+const AVATARS = ['👤','🧑‍🎓','👩‍🎓','👨‍🎓','🧑‍🏫','👩‍🏫','🦁','🐯','🦊','🐼','🦉','🐧','🚀','⭐','🌟','🎯','🧠','💡','📚','🎓','🏆','🥇','⚡','🔥'];
+let userProfile = { name: '', emoji: '👤', photo: null };
+try {
+  const saved = localStorage.getItem('madrasati-user');
+  if (saved) userProfile = Object.assign(userProfile, JSON.parse(saved));
+} catch(e){}
+
+function renderUserAvatar(){
+  const btn = $('#userBtn');
+  if (!btn) return;
+  if (userProfile.photo){
+    btn.innerHTML = `<img src="${userProfile.photo}" alt="">`;
+  } else if (userProfile.name && userProfile.name.trim()){
+    const initial = userProfile.name.trim().charAt(0).toUpperCase();
+    btn.innerHTML = `<span class="initial">${esc(initial)}</span>`;
+  } else {
+    btn.innerHTML = `<span>${userProfile.emoji || '👤'}</span>`;
+  }
+}
+function renderProfileBig(){
+  const big = $('#profileAvatarBig');
+  if (userProfile.photo){
+    big.innerHTML = `<img src="${userProfile.photo}" alt="">
+      <div class="overlay"><span class="cam">📷</span><span>${t('changePhoto')}</span></div>`;
+  } else if (userProfile.emoji){
+    big.innerHTML = `<span>${userProfile.emoji}</span>
+      <div class="overlay"><span class="cam">📷</span><span>${t('changePhoto')}</span></div>`;
+  } else {
+    big.innerHTML = `<span>👤</span>
+      <div class="overlay"><span class="cam">📷</span><span>${t('changePhoto')}</span></div>`;
+  }
+}
+function openProfile(){
+  $('#userNameInput').value = userProfile.name || '';
+  $('#avatarPick').innerHTML = AVATARS.map(e =>
+    `<button data-av="${e}" class="${e === (userProfile.emoji || '👤') ? 'sel' : ''}">${e}</button>`
+  ).join('');
+  renderProfileBig();
+  // اختيار التاب المناسب
+  const showPhoto = !!userProfile.photo;
+  switchAvatarTab(showPhoto ? 'photo' : 'emoji');
+  updateRemoveBtn();
+  $('#profileModal').classList.add('open');
+}
+function switchAvatarTab(tab){
+  $$('.avatar-tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  $('#avatarPhotoSection').style.display = (tab === 'photo') ? '' : 'none';
+  $('#avatarEmojiSection').style.display = (tab === 'emoji') ? '' : 'none';
+}
+function updateRemoveBtn(){
+  $('#removePhotoBtn').style.display = userProfile.photo ? '' : 'none';
+}
+function handleAvatarUpload(file){
+  if (!file || !file.type.startsWith('image/')) return toast('❌ صورة غير صالحة');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const maxSize = 400;
+      let w = img.width, h = img.height;
+      if (w > h && w > maxSize){ h = Math.round(h * maxSize / w); w = maxSize; }
+      else if (h > maxSize){ w = Math.round(w * maxSize / h); h = maxSize; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      try {
+        userProfile.photo = canvas.toDataURL('image/jpeg', 0.85);
+        localStorage.setItem('madrasati-user', JSON.stringify(userProfile));
+        renderProfileBig();
+        updateRemoveBtn();
+        renderUserAvatar();
+        toast('✓ ' + t('photoUploaded'));
+      } catch(err){
+        toast('❌ فشل الحفظ — الصورة كبيرة جدًا');
+      }
+    };
+    img.onerror = () => toast('❌ فشل قراءة الصورة');
+    img.src = e.target.result;
+  };
+  reader.onerror = () => toast('❌ فشل قراءة الملف');
+  reader.readAsDataURL(file);
+}
+function saveProfile(){
+  userProfile.name = $('#userNameInput').value.trim();
+  const sel = $('#avatarPick button.sel');
+  if (sel) userProfile.emoji = sel.dataset.av;
+  try {
+    localStorage.setItem('madrasati-user', JSON.stringify(userProfile));
+    renderUserAvatar();
+    $('#profileModal').classList.remove('open');
+    toast('✓ ' + t('profileSaved'));
+  } catch(err){
+    toast('❌ فشل الحفظ');
+  }
+}
+
+/* ---------- قاعدة البيانات ---------- */
+const DB_NAME = 'madrasati-db', DB_VER = 1;
+let db = null;
+function openDB(){
+  return new Promise((res, rej)=>{
+    const r = indexedDB.open(DB_NAME, DB_VER);
+    r.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('subjects')) d.createObjectStore('subjects', {keyPath:'id'});
+      if (!d.objectStoreNames.contains('shelves'))  d.createObjectStore('shelves',  {keyPath:'id'}).createIndex('subjectId','subjectId');
+      if (!d.objectStoreNames.contains('items'))    d.createObjectStore('items',    {keyPath:'id'}).createIndex('subjectId','subjectId');
+    };
+    r.onsuccess = e => { db = e.target.result; res(db); };
+    r.onerror = e => rej(e.target.error);
+  });
+}
+const store = (s, m='readonly') => db.transaction(s, m).objectStore(s);
+const dbAll  = s => new Promise((res, rej)=>{ const q = store(s).getAll(); q.onsuccess = ()=>res(q.result); q.onerror = ()=>rej(q.error); });
+const dbPut  = (s,v) => new Promise((res, rej)=>{ const q = store(s,'readwrite').put(v); q.onsuccess = ()=>res(v); q.onerror = ()=>rej(q.error); });
+const dbDel  = (s,k) => new Promise((res, rej)=>{ const q = store(s,'readwrite').delete(k); q.onsuccess = ()=>res(); q.onerror = ()=>rej(q.error); });
+
+/* ---------- الحالة ---------- */
+const TABS = [
+  {id:'video',  nameKey:'tabVideo',   icon:'🎬'},
+  {id:'books',  nameKey:'tabBooks',   icon:'📕'},
+  {id:'summary',nameKey:'tabSummary', icon:'📝'},
+  {id:'exams',  nameKey:'tabExams',   icon:'🧪'}
+];
+const state = { subjects: [], items: [], shelves: [], subject: null, tab: 'video', view: 'library', query: '', quick: null };
+let currentItem = null;
+const urlCache = new Map();
+
+function normalizeBlob(it){
+  let src = it.blob; if (!src) return src;
+  if (it.kind === 'pdf' && src.type !== 'application/pdf'){
+    try { src = new Blob([src], {type: 'application/pdf'}); } catch(e){}
+  }
+  return src;
+}
+function blobURL(it){
+  if (urlCache.has(it.id)) return urlCache.get(it.id);
+  const url = URL.createObjectURL(normalizeBlob(it));
+  urlCache.set(it.id, url); return url;
+}
+function revokeURL(id){ if (urlCache.has(id)){ try{ URL.revokeObjectURL(urlCache.get(id)); }catch(e){} urlCache.delete(id); } }
+function kindIcon(it){ return it.kind==='video'?'🎬':it.kind==='pdf'?'📄':it.kind==='image'?'🖼️':it.kind==='audio'?'🎵':'📎'; }
+function kindOf(file){
+  const t = file.type || '', n = (file.name || '').toLowerCase();
+  if (t.startsWith('video') || /\.(mp4|mkv|webm|mov|avi|m4v|flv|wmv|3gp)$/.test(n)) return 'video';
+  if (t === 'application/pdf' || /\.pdf$/.test(n)) return 'pdf';
+  if (t.startsWith('image') || /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/.test(n)) return 'image';
+  if (t.startsWith('audio') || /\.(mp3|wav|ogg|m4a|aac)$/.test(n)) return 'audio';
+  return 'other';
+}
+
+/* =========================================================
+   تتبّع وقت المذاكرة
+   ========================================================= */
+const STUDY_LOG_KEY = 'madrasati-study-log-v1';
+let studyLog = {};
+try { studyLog = JSON.parse(localStorage.getItem(STUDY_LOG_KEY) || '{}') || {}; } catch(e){ studyLog = {}; }
+let studyTick = null, sessionStart = 0, trackingReason = null;
+function todayKey(){ const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function persistStudyTime(){
+  if (!sessionStart) return;
+  const now = Date.now(), sec = Math.floor((now - sessionStart) / 1000);
+  if (sec < 1) return;
+  sessionStart = now;
+  const k = todayKey();
+  studyLog[k] = (studyLog[k] || 0) + sec;
+  const keys = Object.keys(studyLog).sort();
+  if (keys.length > 180) keys.slice(0, keys.length - 180).forEach(kk => delete studyLog[kk]);
+  try { localStorage.setItem(STUDY_LOG_KEY, JSON.stringify(studyLog)); } catch(e){}
+  updateStats();
+}
+function startStudyTracking(reason){
+  if (trackingReason){ trackingReason = reason; return; }
+  trackingReason = reason; sessionStart = Date.now();
+  studyTick = setInterval(persistStudyTime, 5000);
+  document.addEventListener('visibilitychange', onVisibilityChange);
+}
+function stopStudyTracking(reason){
+  if (!trackingReason || (reason && trackingReason !== reason)) return;
+  persistStudyTime();
+  if (studyTick){ clearInterval(studyTick); studyTick = null; }
+  sessionStart = 0; trackingReason = null;
+  document.removeEventListener('visibilitychange', onVisibilityChange);
+}
+function onVisibilityChange(){ if (document.hidden) persistStudyTime(); else sessionStart = Date.now(); }
+window.addEventListener('beforeunload', () => { if (trackingReason) persistStudyTime(); });
+function calcStreak(){
+  let streak = 0; const t = new Date();
+  for (let i = 0; i < 400; i++){
+    const k = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
+    if ((studyLog[k] || 0) > 30) streak++; else if (i > 0) break;
+    t.setDate(t.getDate() - 1);
+  }
+  return streak;
+}
+function fmtDurationShort(sec){
+  sec = Math.floor(sec || 0);
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60);
+  if (currentLang === 'en'){
+    if (h) return h + 'h ' + m + 'm';
+    if (m) return m + 'm';
+    return sec + 's';
+  }
+  if (h) return h + 'س ' + m + 'د';
+  if (m) return m + ' د';
+  return sec + ' ث';
+}
+
+/* =========================================================
+   التشغيل الأولي
+   ========================================================= */
+async function boot(){
+  try{ await openDB(); }
+  catch(err){
+    document.body.innerHTML = '<div style="padding:40px;font-family:sans-serif;direction:rtl;line-height:2">' +
+      '<h2>⚠️ DB error</h2><p>Run via local server (python -m http.server)</p></div>';
+    return;
+  }
+  state.subjects = await dbAll('subjects');
+  state.items    = await dbAll('items');
+  state.shelves  = await dbAll('shelves');
+  state.subjects.sort((a,b)=>a.createdAt - b.createdAt);
+  renderSidebar(); renderMain(); updateStats();
+}
+
+function updateStats(){
+  const totalSize = state.items.reduce((s,i)=> s + (i.size||0), 0);
+  const notes = state.items.reduce((s,i)=> s + ((i.notes||[]).length), 0);
+  const todaySec = studyLog[todayKey()] || 0;
+  const allSec = Object.values(studyLog).reduce((a,b)=>a+b, 0);
+  const streak = calcStreak();
+  $('#statsBox').innerHTML = `
+    <div class="row"><span class="lbl">${t('subjCount')}</span><span class="val">${state.subjects.length}</span></div>
+    <div class="row"><span class="lbl">${t('itemCount')}</span><span class="val">${state.items.length}</span></div>
+    <div class="row"><span class="lbl">${t('noteCount')}</span><span class="val">${notes}</span></div>
+    <div class="row"><span class="lbl">${t('size')}</span><span class="val">${fmtSize(totalSize) || '0'}</span></div>
+    <div class="row"><span class="lbl">${t('todayStudy')}</span><span class="val accent">${todaySec ? fmtDurationShort(todaySec) : '—'}</span></div>
+    <div class="row"><span class="lbl">${t('totalStudy')}</span><span class="val accent">${allSec ? fmtDurationShort(allSec) : '—'}</span></div>
+    ${streak > 0 ? `<div class="row"><span class="lbl">${t('streak')}</span><span class="val streak">${streak} ${t('day')}</span></div>` : ''}
+  `;
+}
+
+function renderSidebar(){
+  const box = $('#subjList');
+  if (!state.subjects.length){
+    box.innerHTML = `<div style="font-size:12.5px;color:var(--muted);padding:8px 6px;line-height:1.9">${t('noSubjects')}</div>`;
+  } else {
+    box.innerHTML = state.subjects.map(s => {
+      const n = state.items.filter(i => i.subjectId === s.id).length;
+      const active = state.subject && state.subject.id === s.id && !state.query && !state.quick;
+      return `<div class="subj ${active?'active':''}" data-subj="${s.id}">
+        <span class="em">${s.emoji||'📘'}</span>
+        <span class="nm">${esc(s.name)}</span>
+        <span class="subj-count">${n}</span>
+        <span class="tools">
+          <button data-rename-subj="${s.id}" title="Edit">✏️</button>
+          <button data-del-subj="${s.id}" title="Delete">🗑️</button>
+        </span>
+      </div>`;
+    }).join('');
+  }
+  $$('[data-quick]').forEach(el => el.classList.toggle('active', state.quick === el.dataset.quick));
+}
+
+function renderMain(){
+  const v = $('#view');
+  if (state.query) { v.innerHTML = viewSearch(); return; }
+  if (state.quick) { v.innerHTML = viewQuick(); return; }
+  if (state.subject) { v.innerHTML = viewSubject(); return; }
+  v.innerHTML = viewHome();
+  v.scrollTop = 0;
+}
+
+function viewHome(){
+  const cards = state.subjects.map(s => {
+    const n = state.items.filter(i => i.subjectId === s.id).length;
+    return `<div class="subj-card" data-subj="${s.id}">
+      <button class="del-subj" data-del-subj="${s.id}" title="Delete">🗑️</button>
+      <span class="big">${s.emoji||'📘'}</span>
+      <div class="ttl">${esc(s.name)}</div>
+      <div class="sub">${n} ${t('items')}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div class="hero">
+    <h1>${t('welcomeTitle')}</h1>
+    <p>${t('welcomeDesc')}<br>${t('welcomeDesc2')}</p>
+  </div>
+  <div class="side-title" style="font-size:14px;margin-bottom:14px"><span>${t('mySubjects')}</span></div>
+  <div class="grid-subj">
+    ${cards}
+    <div class="subj-card add" id="addSubjectCard">
+      <span class="big">➕</span>
+      <div class="ttl">${t('addSubjectCard')}</div>
+      <div class="sub">${t('addSubjectCardSub')}</div>
+    </div>
+  </div>`;
+}
+
+function viewSubject(){
+  const s = state.subject;
+  const items = state.items.filter(i => i.subjectId === s.id && i.tab === state.tab);
+  const allCount = state.items.filter(i => i.subjectId === s.id).length;
+  const tabs = TABS.map(tb => {
+    const c = state.items.filter(i => i.subjectId === s.id && i.tab === tb.id).length;
+    return `<div class="tab ${state.tab===tb.id?'active':''}" data-tab="${tb.id}">${tb.icon} ${t(tb.nameKey)} <span style="font-size:11px;opacity:.7">(${c})</span></div>`;
+  }).join('');
+  const currentTab = TABS.find(x => x.id === state.tab);
+  return `
+  <div class="subject-head">
+    <div class="sh-emoji">${s.emoji||'📘'}</div>
+    <div style="flex:1;min-width:0">
+      <h2>${esc(s.name)}</h2>
+      <p>${allCount} ${t('items')} • ${items.length} ${t('itemsIn')} «${t(currentTab.nameKey)}»</p>
+    </div>
+    <div class="sh-actions">
+      <div class="viewswitch">
+        <button data-view="library" class="${state.view==='library'?'active':''}" title="Library">📚</button>
+        <button data-view="grid" class="${state.view==='grid'?'active':''}" title="Grid">▦</button>
+        <button data-view="list" class="${state.view==='list'?'active':''}" title="List">☰</button>
+      </div>
+      <button class="btn sm" id="addShelfBtn">${t('newShelf')}</button>
+      <button class="btn primary sm" id="addMediaBtn">${t('addMedia')}</button>
+    </div>
+  </div>
+  <div class="tabs">${tabs}</div>
+  <div id="tabBody">${renderItems(items)}</div>`;
+}
+
+function renderItems(items){
+  if (!items.length){
+    return `<div class="empty-state">
+      <span class="e">📭</span>
+      <h3>${t('emptyTitle')}</h3>
+      <p>${t('emptyDesc')}</p>
+      <button class="btn primary" id="addMediaBtn2">${t('emptyBtn')}</button>
+    </div>`;
+  }
+  if (state.view === 'library') return renderLibrary(items);
+  if (state.view === 'grid')    return `<div class="grid-items">${items.map(cardHTML).join('')}</div>`;
+  return `<div class="list-items">${items.map(rowHTML).join('')}</div>`;
+}
+
+function renderLibrary(items){
+  const groups = new Map();
+  const uncat = (currentLang === 'ar') ? 'غير مصنف' : 'Uncategorized';
+  items.forEach(i => {
+    const k = i.category || uncat;
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(i);
+  });
+  let html = '';
+  for (const [name, arr] of groups){
+    html += `<div class="shelf">
+      <div class="shelf-title">🗂️ ${esc(name)} <span>${arr.length}</span></div>
+      <div class="shelf-row">${arr.map(bookHTML).join('')}</div>
+      <div class="shelf-bar"></div>
+    </div>`;
+  }
+  return html;
+}
+
+function bookHTML(it){
+  const h = hashHue(it.id);
+  const inner = it.thumb ? `<img src="${it.thumb}" alt="">` : kindIcon(it);
+  return `<div class="book" data-open="${it.id}" style="--h:${h}">
+    <div class="book-cover">${inner}</div>
+    <div class="book-title">${esc(it.title)}</div>
+    <div class="book-badge">${kindIcon(it)}</div>
+    <button class="book-menu" data-menu="${it.id}">⋮</button>
+  </div>`;
+}
+function cardHTML(it){
+  const inner = it.thumb ? `<img src="${it.thumb}" alt="">` : kindIcon(it);
+  const uncat = (currentLang === 'ar') ? 'غير مصنف' : 'Uncategorized';
+  return `<div class="card" data-open="${it.id}">
+    <button class="book-menu" data-menu="${it.id}">⋮</button>
+    <div class="card-thumb">${inner}</div>
+    <div class="card-body">
+      <h4>${esc(it.title)}</h4>
+      <div class="card-meta">
+        <span>${kindIcon(it)} ${esc(it.category || uncat)}</span>
+        <span>${fmtSize(it.size)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+function rowHTML(it){
+  const uncat = (currentLang === 'ar') ? 'غير مصنف' : 'Uncategorized';
+  return `<div class="row-item" data-open="${it.id}">
+    <span class="ri">${kindIcon(it)}</span>
+    <div class="rt">
+      <h4>${esc(it.title)}</h4>
+      <p>${esc(it.category || uncat)} • ${fmtSize(it.size)} • ${fmtDate(it.createdAt)}${(it.notes||[]).length ? ' • 🗒️ ' + it.notes.length : ''}</p>
+    </div>
+    <button class="rmenu" data-menu="${it.id}">⋮</button>
+  </div>`;
+}
+
+function viewSearch(){
+  const q = state.query.trim().toLowerCase();
+  const subs = state.subjects.filter(s => s.name.toLowerCase().includes(q));
+  const items = state.items.filter(i =>
+    i.title.toLowerCase().includes(q) ||
+    (i.category||'').toLowerCase().includes(q) ||
+    (i.notes||[]).some(n => n.text.toLowerCase().includes(q)) ||
+    (state.subjects.find(s => s.id === i.subjectId)?.name || '').toLowerCase().includes(q)
+  );
+  let html = `<div class="side-title" style="font-size:15px;margin-bottom:16px"><span>${t('searchResults')} «${esc(state.query)}» — ${items.length + subs.length} ${t('result')}</span></div>`;
+  if (subs.length){
+    html += `<div class="side-title"><span>📚 ${t('subjects')}</span></div><div class="grid-subj" style="margin-bottom:22px">` +
+      subs.map(s => `<div class="subj-card" data-subj="${s.id}"><span class="big">${s.emoji||'📘'}</span><div class="ttl">${esc(s.name)}</div><div class="sub">${state.items.filter(i=>i.subjectId===s.id).length} ${t('items')}</div></div>`).join('') + `</div>`;
+  }
+  if (items.length){
+    html += `<div class="side-title"><span>🗂️ ${t('itemCount')}</span></div><div class="list-items">` +
+      items.map(i => {
+        const s = state.subjects.find(x => x.id === i.subjectId);
+        const uncat = (currentLang === 'ar') ? 'غير مصنف' : 'Uncategorized';
+        return `<div class="row-item" data-open="${i.id}">
+          <span class="ri">${kindIcon(i)}</span>
+          <div class="rt"><h4>${esc(i.title)}</h4>
+          <p>${s ? esc(s.emoji+' '+s.name) : ''} • ${esc(i.category||uncat)} • ${fmtSize(i.size)}</p></div>
+        </div>`;
+      }).join('') + `</div>`;
+  }
+  if (!subs.length && !items.length){
+    html += `<div class="empty-state"><span class="e">🔍</span><h3>${t('noResults')}</h3><p>${t('tryOther')}</p></div>`;
+  }
+  return html;
+}
+
+function viewQuick(){
+  const q = state.quick;
+  let items = state.items, title = '';
+  if (q === 'videos'){ items = items.filter(i=>i.kind==='video'); title = '🎬 ' + t('allVideos'); }
+  else if (q === 'pdfs'){ items = items.filter(i=>i.kind==='pdf'); title = '📄 ' + t('allPdfs'); }
+  else if (q === 'notes'){ items = items.filter(i=>(i.notes||[]).length); title = '🗒️ ' + t('allNotes'); }
+  else { title = '🗂️ ' + t('allMedia'); }
+
+  if (q === 'notes' && items.length){
+    return `<div class="side-title" style="font-size:15px;margin-bottom:16px"><span>${title} (${items.length})</span></div>` +
+      items.map(it => {
+        const s = state.subjects.find(x => x.id === it.subjectId);
+        return `<div class="shelf"><div class="shelf-title">${kindIcon(it)} ${esc(it.title)} <span>${s?esc(s.name):''}</span></div>` +
+          `<div class="notes-list">${(it.notes||[]).map(n=>`<div class="note"><div class="note-txt">${esc(n.text)}</div>
+            <div class="note-meta">${n.time!=null?`<span class="chip">⏱️ ${fmtTime(n.time)}</span>`:''}<span>${fmtDate(n.at)}</span>
+            <button class="del" data-open="${it.id}" style="margin-inline-start:auto;background:transparent;border:0;cursor:pointer;color:var(--accent)">${t('study')}</button></div></div>`).join('')}</div></div>`;
+      }).join('');
+  }
+  return `<div class="side-title" style="font-size:15px;margin-bottom:16px"><span>${title} (${items.length})</span></div>` +
+    (items.length ? `<div class="grid-items">${items.map(cardHTML).join('')}</div>`
+      : `<div class="empty-state"><span class="e">📭</span><h3>${t('noResults')}</h3></div>`);
+}
+
+function openViewer(id){
+  const it = state.items.find(x => x.id === id);
+  if (!it) return;
+  currentItem = it;
+  $('#viewerTitle').textContent = it.title;
+  const box = $('#viewerMedia');
+  const url = blobURL(it);
+  if (it.kind === 'video'){
+    box.innerHTML = `<div class="media-wrap"><video src="${url}" controls autoplay playsinline preload="metadata"></video></div>`;
+  } else if (it.kind === 'pdf'){
+    box.innerHTML = `<div class="media-wrap"><iframe src="${url}" title="${esc(it.title)}"></iframe></div>
+      <div class="pdf-tools">
+        <a href="${url}" target="_blank" rel="noopener">${t('openNew')}</a>
+        <a href="${url}" download="${esc(it.fileName || safeName(it.title) + '.pdf')}">${t('download')}</a>
+      </div>`;
+  } else if (it.kind === 'image'){
+    box.innerHTML = `<div class="media-wrap"><img src="${url}" alt="${esc(it.title)}"></div>`;
+  } else if (it.kind === 'audio'){
+    box.innerHTML = `<div class="media-wrap"><audio src="${url}" controls autoplay></audio></div>`;
+  } else {
+    box.innerHTML = `<div class="media-wrap"><div class="unsupported"><div style="font-size:52px;margin-bottom:14px">📎</div>
+      <p style="margin-bottom:14px">${t('unsupported')}</p>
+      <a class="btn primary" href="${url}" download="${esc(it.fileName||it.title)}">${t('download')}</a></div></div>`;
+  }
+  renderNotes(it);
+  $('#viewer').classList.add('open');
+  startStudyTracking('viewer');
+}
+function closeViewer(){
+  $('#viewerMedia').innerHTML = '';
+  $('#viewer').classList.remove('open');
+  currentItem = null;
+  stopStudyTracking('viewer');
+}
+function renderNotes(it){
+  const list = it.notes || [];
+  const loc = currentLang === 'en' ? 'en-US' : 'ar-EG';
+  $('#notesList').innerHTML = list.length
+    ? list.map(n => `<div class="note">
+        <div class="note-txt">${esc(n.text)}</div>
+        <div class="note-meta">
+          ${n.time != null ? `<button class="chip" data-seek="${n.time}">⏱️ ${fmtTime(n.time)}</button>` : ''}
+          <span>${new Date(n.at).toLocaleString(loc)}</span>
+          <button class="del" data-delnote="${n.id}">🗑️</button>
+        </div>
+      </div>`).join('')
+    : `<p style="color:var(--muted);font-size:13px;text-align:center;padding:22px 0">—</p>`;
+}
+async function addNote(){
+  if (!currentItem) return;
+  const txt = $('#noteInput').value.trim();
+  if (!txt) return toast(t('writeNoteFirst'));
+  let time = null;
+  if ($('#linkTime').checked){ const v = $('#viewerMedia video'); if (v) time = v.currentTime; }
+  const note = {id: uid(), text: txt, time, at: Date.now()};
+  currentItem.notes = currentItem.notes || [];
+  currentItem.notes.push(note);
+  await dbPut('items', currentItem);
+  const idx = state.items.findIndex(i => i.id === currentItem.id);
+  if (idx > -1) state.items[idx] = currentItem;
+  $('#noteInput').value = '';
+  $('#linkTime').checked = false;
+  renderNotes(currentItem);
+  toast('✓ ' + t('noteSaved'));
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath(); ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+async function shareAsImage(it){
+  const W = 1200, H = 630;
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  const g = x.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, '#16233f'); g.addColorStop(.55, '#2a4bb8'); g.addColorStop(1, '#7c4dff');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.globalAlpha = .09; x.fillStyle = '#fff';
+  x.beginPath(); x.arc(1080, 90, 240, 0, 7); x.fill();
+  x.beginPath(); x.arc(120, 560, 180, 0, 7); x.fill();
+  x.globalAlpha = 1;
+  roundRect(x, 54, 54, W - 108, H - 108, 34);
+  x.fillStyle = 'rgba(255,255,255,.97)'; x.fill();
+  x.direction = 'rtl'; x.textAlign = 'right';
+  x.font = '600 30px "Segoe UI", Tahoma, sans-serif';
+  x.fillStyle = '#3b6cf6';
+  x.fillText('🎓 ' + t('brand'), W - 110, 128);
+  const subj = state.subjects.find(s => s.id === it.subjectId);
+  x.font = '600 24px "Segoe UI", Tahoma, sans-serif';
+  x.fillStyle = '#8a97ad';
+  const currentTab = TABS.find(x2=>x2.id===it.tab);
+  x.fillText((subj ? subj.emoji + ' ' + subj.name + '  •  ' : '') + kindIcon(it) + ' ' + (currentTab?t(currentTab.nameKey):''), W - 110, 172);
+  x.font = 'bold 54px "Segoe UI", Tahoma, sans-serif';
+  x.fillStyle = '#0f1b2e';
+  const title = it.title.length > 38 ? it.title.slice(0, 38) + '…' : it.title;
+  x.fillText(title, W - 110, 258);
+  x.fillStyle = '#e3e9f3'; x.fillRect(110, 300, W - 220, 3);
+  const notes = (it.notes || []).slice(-4);
+  x.font = '500 26px "Segoe UI", Tahoma, sans-serif';
+  if (notes.length){
+    x.fillStyle = '#3b6cf6';
+    x.fillText('🗒️ ' + t('notes') + ':', W - 110, 358);
+    x.fillStyle = '#33415a';
+    x.font = '400 24px "Segoe UI", Tahoma, sans-serif';
+    notes.forEach((n, i) => {
+      let tt = n.text.replace(/\s+/g, ' ');
+      if (n.time != null) tt = '⏱️ ' + fmtTime(n.time) + ' — ' + tt;
+      if (tt.length > 62) tt = tt.slice(0, 62) + '…';
+      x.fillText('• ' + tt, W - 118, 402 + i * 40);
+    });
+  }
+  x.font = '500 20px "Segoe UI", Tahoma, sans-serif';
+  x.fillStyle = '#a6b2c6';
+  x.fillText(fmtDate(it.createdAt) + '  •  ' + (fmtSize(it.size) || '—'), W - 110, H - 100);
+  x.direction = 'ltr'; x.textAlign = 'right';
+  x.font = '700 20px "Segoe UI", Tahoma, sans-serif';
+  x.fillStyle = '#3b6cf6';
+  x.fillText('AhmdSchool', W - 110, H - 60);
+  c.toBlob(b => {
+    if (!b) return toast('Error');
+    download(b, safeName(it.title) + '.png');
+    toast('✓ ' + t('imageCreated'));
+  }, 'image/png');
+}
+async function shareAsMHT(it){
+  toast('⏳ ' + t('preparingMht'));
+  const blob = normalizeBlob(it);
+  const b64 = await new Promise(res => {
+    const fr = new FileReader();
+    fr.onload = () => res(String(fr.result).split(',')[1]);
+    fr.readAsDataURL(blob);
+  });
+  const chunked = b64.replace(/(.{76})/g, '$1\r\n');
+  const subj = state.subjects.find(s => s.id === it.subjectId);
+  const boundary = '----=_NextPart_Madrasati_' + uid();
+  const fname = it.fileName || (safeName(it.title) + guessExt(it.mime));
+  const currentTab = TABS.find(x => x.id === it.tab);
+  const html = `<html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>${esc(it.title)}</title>
+<style>body{font-family:"Segoe UI",Tahoma,sans-serif;background:#f4f6fb;padding:30px;color:#16202f}
+.wrap{max-width:900px;margin:auto;background:#fff;border-radius:16px;padding:26px}</style></head>
+<body><div class="wrap"><div style="color:#3b6cf6;font-weight:700;margin-bottom:12px">🎓 ${t('brand')}</div>
+<h1>${esc(it.title)}</h1>
+<div style="color:#6b7a90;font-size:14px;margin-bottom:20px">${subj ? esc(subj.emoji + ' ' + subj.name) + ' • ' : ''}${kindIcon(it)} ${currentTab?t(currentTab.nameKey):''} • ${fmtSize(it.size)}</div>
+<div style="margin-top:22px;text-align:center;color:#3b6cf6;font-weight:800">AhmdSchool</div>
+</div></body></html>`;
+  const mht = `From: <Saved by Madrasati>\r\nSubject: ${it.title}\r\nDate: ${new Date().toUTCString()}\r\nMIME-Version: 1.0\r\n` +
+    `Content-Type: multipart/related; boundary="${boundary}"; type="text/html"\r\n\r\n` +
+    `--${boundary}\r\nContent-Type: text/html; charset="utf-8"\r\nContent-Transfer-Encoding: 8bit\r\n\r\n` + html + `\r\n\r\n` +
+    `--${boundary}\r\nContent-Type: ${it.mime || 'application/octet-stream'}; name="${fname}"\r\n` +
+    `Content-Transfer-Encoding: base64\r\nContent-ID: <media>\r\n\r\n` + chunked + `\r\n\r\n--${boundary}--\r\n`;
+  const out = new Blob([mht], {type: 'message/rfc822'});
+  download(out, safeName(it.title) + '.mht');
+  toast('✓ ' + t('mhtCreated'));
+}
+function guessExt(mime){
+  const m = {'video/mp4':'.mp4','video/webm':'.webm','application/pdf':'.pdf','image/png':'.png','image/jpeg':'.jpg','audio/mpeg':'.mp3'};
+  return m[mime] || '.bin';
+}
+async function shareNative(it){
+  try{
+    const blob = normalizeBlob(it);
+    const file = new File([blob], it.fileName || safeName(it.title) + guessExt(it.mime), {type: it.mime || blob.type || 'application/octet-stream'});
+    if (navigator.canShare && navigator.canShare({files: [file]})){ await navigator.share({files: [file], title: it.title}); return; }
+    const url = blobURL(it);
+    if (navigator.share){ await navigator.share({title: it.title, url}); return; }
+    await navigator.clipboard.writeText(it.title + ' — ' + url);
+    toast('🔗 OK');
+  }catch(e){}
+}
+function download(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+
+function openStudy(){
+  const vids = state.items.filter(i => i.kind === 'video');
+  const pdfs = state.items.filter(i => i.kind === 'pdf');
+  const vSel = $('#studyVideoSel'), pSel = $('#studyPdfSel');
+  vSel.innerHTML = `<option value="">${t('chooseVideo')}</option>` +
+    vids.map(i => { const s = state.subjects.find(x=>x.id===i.subjectId); return `<option value="${i.id}">${esc((s?s.emoji+' ':'')+i.title)}</option>`; }).join('');
+  pSel.innerHTML = `<option value="">${t('choosePdf')}</option>` +
+    pdfs.map(i => { const s = state.subjects.find(x=>x.id===i.subjectId); return `<option value="${i.id}">${esc((s?s.emoji+' ':'')+i.title)}</option>`; }).join('');
+  $('#study').classList.add('open');
+  startStudyTracking('study');
+}
+function setStudyVideo(id){
+  const pane = $('#studyVideoPane');
+  if (!id){ pane.innerHTML = '<div class="ph">🎬</div>'; return; }
+  const it = state.items.find(x => x.id === id); if (!it) return;
+  pane.innerHTML = `<video src="${blobURL(it)}" controls playsinline></video>`;
+}
+function setStudyPdf(id){
+  const pane = $('#studyPdfPane');
+  if (!id){ pane.innerHTML = '<div class="ph">📄</div>'; return; }
+  const it = state.items.find(x => x.id === id); if (!it) return;
+  pane.innerHTML = `<iframe src="${blobURL(it)}" title="${esc(it.title)}"></iframe>`;
+}
+
+const EMOJIS = ['📘','📕','📗','📙','🧪','🧬','🔬','➗','📐','🧠','🌍','🕋','🇬🇧','🇫🇷','💻','📊','⚖️','🎨','🎵','🏛️','🧮','⚗️','🩺','🛠️'];
+let pickedEmoji = '📘';
+
+function openSubjectModal(){
+  pickedEmoji = '📘';
+  $('#smName').value = '';
+  $('#emojiPick').innerHTML = EMOJIS.map(e => `<button data-em="${e}" class="${e===pickedEmoji?'sel':''}">${e}</button>`).join('');
+  $('#subjModal').classList.add('open');
+  setTimeout(()=>$('#smName').focus(), 100);
+}
+async function saveSubject(){
+  const name = $('#smName').value.trim();
+  if (!name) return toast(t('subjectNamePh'));
+  const s = {id: uid(), name, emoji: pickedEmoji, createdAt: Date.now()};
+  await dbPut('subjects', s);
+  state.subjects.push(s);
+  $('#subjModal').classList.remove('open');
+  renderSidebar(); renderMain(); updateStats();
+  toast('✓ ' + t('subjectAdded') + ' «' + name + '»');
+}
+function openAddMedia(){
+  if (!state.subject) return toast(t('selectSubjectFirst'));
+  const sh = state.shelves.filter(s => s.subjectId === state.subject.id && s.tab === state.tab);
+  const uncat = (currentLang === 'ar') ? 'غير مصنف' : 'Uncategorized';
+  $('#amShelf').innerHTML = `<option value="">${uncat}</option>` +
+    sh.map(s => `<option value="${esc(s.name)}">${esc(s.name)}</option>`).join('') +
+    `<option value="__new">➕ ${t('newShelf')}</option>`;
+  $('#amTitle').value = '';
+  $('#amFiles').value = '';
+  $('#addModal').classList.add('open');
+}
+async function saveMedia(){
+  const files = [...$('#amFiles').files];
+  if (!files.length) return toast(t('chooseAtLeastOne'));
+  let shelf = $('#amShelf').value;
+  if (shelf === '__new'){
+    const n = prompt(t('newShelfPrompt'));
+    if (n && n.trim()){
+      shelf = n.trim();
+      const sh = {id: uid(), subjectId: state.subject.id, tab: state.tab, name: shelf};
+      await dbPut('shelves', sh); state.shelves.push(sh);
+    } else shelf = '';
+  }
+  const customTitle = $('#amTitle').value.trim();
+  $('#addModal').classList.remove('open');
+  toast('⏳ ' + t('addingFiles') + ' ' + files.length + ' ' + t('files'));
+  for (const f of files){
+    const kind = kindOf(f);
+    let thumb = null;
+    if (kind === 'video') thumb = await makeThumb(f);
+    else if (kind === 'image') thumb = await makeImageThumb(f);
+    let blob = f;
+    if (kind === 'pdf' && f.type !== 'application/pdf'){
+      try { blob = new File([f], f.name, {type: 'application/pdf'}); } catch(e){ blob = f; }
+    }
+    const it = {
+      id: uid(), subjectId: state.subject.id, tab: state.tab,
+      title: customTitle ? (files.length > 1 ? customTitle + ' — ' + f.name : customTitle) : f.name.replace(/\.[^.]+$/, ''),
+      category: shelf || '', kind, mime: blob.type || '', size: f.size,
+      fileName: f.name, blob, thumb, notes: [], createdAt: Date.now()
+    };
+    await dbPut('items', it);
+    state.items.push(it);
+  }
+  renderSidebar(); renderMain(); updateStats();
+  toast('✓ ' + t('mediaAdded'));
+}
+function makeThumb(file){
+  return new Promise(res => {
+    try{
+      const v = document.createElement('video');
+      v.preload='metadata'; v.muted=true; v.playsInline=true;
+      const url = URL.createObjectURL(file); v.src = url;
+      let done = false;
+      const finish = val => { if (done) return; done = true; URL.revokeObjectURL(url); res(val); };
+      v.onloadeddata = () => { try{ v.currentTime = Math.min(2, (v.duration || 3) / 3); }catch(e){ finish(null); } };
+      v.onseeked = () => {
+        try{
+          const c = document.createElement('canvas'); c.width = 320; c.height = 180;
+          c.getContext('2d').drawImage(v, 0, 0, 320, 180);
+          finish(c.toDataURL('image/jpeg', .72));
+        }catch(e){ finish(null); }
+      };
+      v.onerror = () => finish(null);
+      setTimeout(() => finish(null), 5000);
+    }catch(e){ res(null); }
+  });
+}
+function makeImageThumb(file){
+  return new Promise(res => {
+    try{
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        const r = Math.min(320 / img.width, 180 / img.height, 1);
+        c.width = img.width * r; c.height = img.height * r;
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        res(c.toDataURL('image/jpeg', .72));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); res(null); };
+      img.src = url;
+    }catch(e){ res(null); }
+  });
+}
+
+let ctxTargetId = null;
+function openCtx(id, x, y){
+  ctxTargetId = id;
+  const it = state.items.find(i => i.id === id); if (!it) return;
+  const m = $('#ctxMenu');
+  m.innerHTML = `
+    <button data-act="open">👁️ ${t('study')}</button>
+    <button data-act="rename">✏️ ${t('rename')}</button>
+    <button data-act="move">🗂️ ${t('shelfLabel')}</button>
+    <div class="sep"></div>
+    <button data-act="img">🖼️ ${t('shareImage')}</button>
+    <button data-act="mht">📧 ${t('shareMht')}</button>
+    <button data-act="dl">${t('download')}</button>
+    <div class="sep"></div>
+    <button data-act="del" class="danger">🗑️ ${currentLang==='ar'?'حذف':'Delete'}</button>`;
+  m.classList.add('open');
+  const mw = 210, mh = m.offsetHeight;
+  m.style.left = Math.max(10, Math.min(x, innerWidth - mw - 10)) + 'px';
+  m.style.top  = Math.max(10, Math.min(y, innerHeight - mh - 10)) + 'px';
+}
+function closeCtx(){ $('#ctxMenu').classList.remove('open'); ctxTargetId = null; }
+async function ctxAction(act){
+  const it = state.items.find(i => i.id === ctxTargetId);
+  closeCtx();
+  if (!it) return;
+  if (act === 'open') return openViewer(it.id);
+  if (act === 'rename'){
+    const n = prompt(t('renameItemPrompt'), it.title);
+    if (n && n.trim()){ it.title = n.trim(); await dbPut('items', it); renderMain(); toast('✓'); }
+  } else if (act === 'move'){
+    const n = prompt(t('movePrompt'), it.category || '');
+    if (n !== null){ it.category = n.trim(); await dbPut('items', it); renderMain(); toast('✓'); }
+  } else if (act === 'img'){ shareAsImage(it); }
+  else if (act === 'mht'){ shareAsMHT(it); }
+  else if (act === 'dl'){ download(normalizeBlob(it), it.fileName || safeName(it.title) + guessExt(it.mime)); }
+  else if (act === 'del'){
+    if (!confirm(t('confirmDeleteItem'))) return;
+    await dbDel('items', it.id);
+    state.items = state.items.filter(x => x.id !== it.id);
+    revokeURL(it.id);
+    renderSidebar(); renderMain(); updateStats();
+    toast('🗑️ ' + t('mediaDeleted'));
+  }
+}
+
+const THEMES = [
+  {id:'light',    nameKey:'themeLight',    c1:'#eef2f9', c2:'#3b6cf6'},
+  {id:'dark',     nameKey:'themeDark',     c1:'#0e1218', c2:'#5b8cff'},
+  {id:'midnight', nameKey:'themeMidnight', c1:'#0a1030', c2:'#4f7dff'},
+  {id:'sepia',    nameKey:'themeSepia',    c1:'#f4ecdd', c2:'#b07d3a'},
+  {id:'forest',   nameKey:'themeForest',   c1:'#0f1d17', c2:'#2fbf71'},
+  {id:'rose',     nameKey:'themeRose',     c1:'#fdf2f6', c2:'#e0508b'}
+];
+function initThemes(){
+  const saved = localStorage.getItem('madrasati-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  $('#themeGrid').innerHTML = THEMES.map(t2 =>
+    `<button class="theme-opt ${t2.id===saved?'sel':''}" data-theme-id="${t2.id}">
+      <span class="swatch" style="background:linear-gradient(135deg,${t2.c1} 45%,${t2.c2} 55%)"></span>${t(t2.nameKey)}
+    </button>`).join('');
+}
+function setTheme(id){
+  document.documentElement.setAttribute('data-theme', id);
+  localStorage.setItem('madrasati-theme', id);
+  $$('.theme-opt').forEach(b => b.classList.toggle('sel', b.dataset.themeId === id));
+}
+
+function initOffline(){
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')){
+    navigator.serviceWorker.register('sw.js', {scope: './'})
+      .then(reg => console.log('✅ SW registered:', reg.scope))
+      .catch(err => console.warn('⚠️ SW failed:', err));
+  }
+}
+
+/* =========================================================
+   ربط الأحداث
+   ========================================================= */
+function bindEvents(){
+  $('#menuBtn').addEventListener('click', () => {
+    $('#sidebar').classList.toggle('open');
+    $('#backdrop').classList.toggle('show', $('#sidebar').classList.contains('open'));
+  });
+  $('#backdrop').addEventListener('click', () => {
+    $('#sidebar').classList.remove('open');
+    $('#backdrop').classList.remove('show');
+  });
+  $('#subjList').addEventListener('click', e => {
+    const del = e.target.closest('[data-del-subj]');
+    if (del){ e.stopPropagation(); deleteSubject(del.dataset.delSubj); return; }
+    const ren = e.target.closest('[data-rename-subj]');
+    if (ren){ e.stopPropagation(); renameSubject(ren.dataset.renameSubj); return; }
+    const el = e.target.closest('[data-subj]');
+    if (el){
+      gotoSubject(el.dataset.subj);
+      // إغلاق السايد بار تلقائيًا على الجوال
+      if (window.innerWidth <= 880){
+        $('#sidebar').classList.remove('open');
+        $('#backdrop').classList.remove('show');
+      }
+    }
+  });
+  $$('[data-quick]').forEach(el => el.addEventListener('click', () => {
+    state.quick = el.dataset.quick;
+    state.subject = null; state.query = ''; $('#searchInput').value = '';
+    $('#sidebar').classList.remove('open'); $('#backdrop').classList.remove('show');
+    renderSidebar(); renderMain();
+  }));
+  $('#addSubjectBtn').addEventListener('click', openSubjectModal);
+
+  $('#view').addEventListener('click', e => {
+    const menu = e.target.closest('[data-menu]');
+    if (menu){
+      e.stopPropagation();
+      const r = menu.getBoundingClientRect();
+      const isRTL = document.documentElement.dir === 'rtl';
+      openCtx(menu.dataset.menu, isRTL ? r.left - 190 : r.right - 20, r.bottom + 4);
+      return;
+    }
+    const open = e.target.closest('[data-open]');
+    if (open){ openViewer(open.dataset.open); return; }
+    const sub = e.target.closest('[data-subj]');
+    if (sub){
+      const del = e.target.closest('[data-del-subj]');
+      if (del){ deleteSubject(del.dataset.delSubj); return; }
+      gotoSubject(sub.dataset.subj); return;
+    }
+    const tab = e.target.closest('[data-tab]');
+    if (tab){ state.tab = tab.dataset.tab; renderMain(); return; }
+    const vw = e.target.closest('[data-view]');
+    if (vw){ state.view = vw.dataset.view; renderMain(); return; }
+    if (e.target.closest('#addSubjectCard')) return openSubjectModal();
+    if (e.target.closest('#addMediaBtn') || e.target.closest('#addMediaBtn2')) return openAddMedia();
+    if (e.target.closest('#addShelfBtn')){
+      const n = prompt(t('newShelfPrompt'));
+      if (n && n.trim()){
+        const sh = {id: uid(), subjectId: state.subject.id, tab: state.tab, name: n.trim()};
+        dbPut('shelves', sh).then(() => state.shelves.push(sh));
+        toast('🗂️ ' + t('shelfCreated'));
+      }
+    }
+  });
+
+  let sTm;
+  $('#searchInput').addEventListener('input', e => {
+    clearTimeout(sTm);
+    sTm = setTimeout(() => {
+      state.query = e.target.value.trim();
+      if (state.query){ state.quick = null; }
+      renderSidebar(); renderMain();
+    }, 180);
+  });
+
+  $('#themeBtn').addEventListener('click', e => { e.stopPropagation(); $('#themePop').classList.toggle('open'); });
+  $('#themePop').addEventListener('click', e => {
+    const b = e.target.closest('[data-theme-id]');
+    if (b){ setTheme(b.dataset.themeId); toast('🎨 ' + t('themeChanged')); }
+  });
+
+  $('#langBtn').addEventListener('click', () => { setLang(currentLang === 'ar' ? 'en' : 'ar'); });
+
+  // Profile
+  $('#userBtn').addEventListener('click', openProfile);
+  $('.avatar-tabs').addEventListener('click', e => {
+    const b = e.target.closest('button[data-tab]');
+    if (b) switchAvatarTab(b.dataset.tab);
+  });
+  $('#avatarPick').addEventListener('click', e => {
+    const b = e.target.closest('[data-av]');
+    if (b){
+      $$('#avatarPick button').forEach(x => x.classList.toggle('sel', x === b));
+      userProfile.photo = null;
+      userProfile.emoji = b.dataset.av;
+      localStorage.setItem('madrasati-user', JSON.stringify(userProfile));
+      renderProfileBig();
+      updateRemoveBtn();
+      renderUserAvatar();
+    }
+  });
+  $('#profileAvatarBig').addEventListener('click', () => $('#avatarFileInput').click());
+  $('#uploadPhotoBtn').addEventListener('click', () => $('#avatarFileInput').click());
+  $('#avatarFileInput').addEventListener('change', e => {
+    const f = e.target.files[0];
+    if (f) handleAvatarUpload(f);
+    e.target.value = '';
+  });
+  $('#removePhotoBtn').addEventListener('click', () => {
+    userProfile.photo = null;
+    localStorage.setItem('madrasati-user', JSON.stringify(userProfile));
+    renderProfileBig();
+    updateRemoveBtn();
+    renderUserAvatar();
+    toast('🗑️ ' + t('photoRemoved'));
+  });
+  $('#saveProfileBtn').addEventListener('click', saveProfile);
+  $('#cancelProfileBtn').addEventListener('click', () => $('#profileModal').classList.remove('open'));
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#themePop') && !e.target.closest('#themeBtn')) $('#themePop').classList.remove('open');
+    if (!e.target.closest('#ctxMenu')) closeCtx();
+  });
+
+  $('#ctxMenu').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]');
+    if (b) ctxAction(b.dataset.act);
+  });
+
+  $('#closeViewer').addEventListener('click', closeViewer);
+  $('#addNoteBtn').addEventListener('click', addNote);
+  $('#noteInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) addNote();
+  });
+  $('#shareImgBtn').addEventListener('click', () => currentItem && shareAsImage(currentItem));
+  $('#shareMhtBtn').addEventListener('click', () => currentItem && shareAsMHT(currentItem));
+  $('#shareNativeBtn').addEventListener('click', () => currentItem && shareNative(currentItem));
+  $('#renameBtn').addEventListener('click', async () => {
+    if (!currentItem) return;
+    const n = prompt(t('renameItemPrompt'), currentItem.title);
+    if (n && n.trim()){
+      currentItem.title = n.trim();
+      await dbPut('items', currentItem);
+      $('#viewerTitle').textContent = currentItem.title;
+      renderMain(); toast('✓');
+    }
+  });
+  $('#notesList').addEventListener('click', async e => {
+    const seek = e.target.closest('[data-seek]');
+    if (seek){
+      const v = $('#viewerMedia video');
+      if (v){ v.currentTime = parseFloat(seek.dataset.seek); v.play(); }
+      return;
+    }
+    const del = e.target.closest('[data-delnote]');
+    if (del && currentItem){
+      currentItem.notes = (currentItem.notes || []).filter(n => n.id !== del.dataset.delnote);
+      await dbPut('items', currentItem);
+      const idx = state.items.findIndex(i => i.id === currentItem.id);
+      if (idx > -1) state.items[idx] = currentItem;
+      renderNotes(currentItem);
+      toast('🗑️ ' + t('noteDeleted'));
+    }
+  });
+
+  $('#studyBtn').addEventListener('click', openStudy);
+  $('#studyClose').addEventListener('click', () => {
+    $('#study').classList.remove('open');
+    $('#studyVideoPane').innerHTML = '<div class="ph">🎬</div>';
+    $('#studyPdfPane').innerHTML = '<div class="ph">📄</div>';
+    $('#studyVideoSel').value = ''; $('#studyPdfSel').value = '';
+    stopStudyTracking('study');
+  });
+  $('#studyVideoSel').addEventListener('change', e => setStudyVideo(e.target.value));
+  $('#studyPdfSel').addEventListener('change', e => setStudyPdf(e.target.value));
+  $('#studySwap').addEventListener('click', () => {
+    $('#studyVideoSel').value = ''; $('#studyPdfSel').value = '';
+    setStudyVideo(''); setStudyPdf('');
+    const body = $('.study-body');
+    body.style.flexDirection = body.style.flexDirection === 'row-reverse' ? 'row' : 'row-reverse';
+  });
+  $('#studyLayout').addEventListener('click', () => {
+    const body = $('.study-body');
+    const vertical = body.style.flexDirection === 'column';
+    body.style.flexDirection = vertical ? 'row' : 'column';
+  });
+
+  $('#smCancel').addEventListener('click', () => $('#subjModal').classList.remove('open'));
+  $('#smSave').addEventListener('click', saveSubject);
+  $('#smName').addEventListener('keydown', e => { if (e.key === 'Enter') saveSubject(); });
+  $('#emojiPick').addEventListener('click', e => {
+    const b = e.target.closest('[data-em]');
+    if (b){
+      pickedEmoji = b.dataset.em;
+      $$('#emojiPick button').forEach(x => x.classList.toggle('sel', x === b));
+    }
+  });
+  $('#amCancel').addEventListener('click', () => $('#addModal').classList.remove('open'));
+  $('#amSave').addEventListener('click', saveMedia);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape'){
+      closeViewer(); closeCtx();
+      $('#subjModal').classList.remove('open');
+      $('#addModal').classList.remove('open');
+      $('#themePop').classList.remove('open');
+      $('#profileModal').classList.remove('open');
+      $('#study').classList.remove('open');
+      $('#sidebar').classList.remove('open');
+      $('#backdrop').classList.remove('show');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k'){ e.preventDefault(); $('#searchInput').focus(); }
+  });
+
+  // إغلاق السايد بار عند تغيير حجم الشاشة إلى الديسكتوب
+  let rTm;
+  window.addEventListener('resize', () => {
+    clearTimeout(rTm);
+    rTm = setTimeout(() => {
+      if (window.innerWidth > 880){
+        $('#sidebar').classList.remove('open');
+        $('#backdrop').classList.remove('show');
+      }
+    }, 100);
+  });
+
+  // Drag & Drop
+  let dragCounter = 0;
+  const hint = document.createElement('div');
+  hint.className = 'drag-over'; hint.textContent = t('dropFilesHere');
+  document.addEventListener('dragenter', e => {
+    if (!e.dataTransfer.types.includes('Files')) return;
+    dragCounter++;
+    if (dragCounter === 1 && state.subject) document.body.appendChild(hint);
+  });
+  document.addEventListener('dragleave', () => {
+    dragCounter = Math.max(0, dragCounter - 1);
+    if (dragCounter === 0) hint.remove();
+  });
+  document.addEventListener('dragover', e => e.preventDefault());
+  document.addEventListener('drop', async e => {
+    e.preventDefault(); dragCounter = 0; hint.remove();
+    const files = [...e.dataTransfer.files];
+    if (!files.length) return;
+    if (!state.subject) return toast(t('selectSubjectFirst'));
+    toast('⏳ ' + t('addingFiles') + ' ' + files.length + ' ' + t('files'));
+    for (const f of files){
+      const kind = kindOf(f);
+      let thumb = null;
+      if (kind === 'video') thumb = await makeThumb(f);
+      else if (kind === 'image') thumb = await makeImageThumb(f);
+      let blob = f;
+      if (kind === 'pdf' && f.type !== 'application/pdf'){
+        try { blob = new File([f], f.name, {type: 'application/pdf'}); } catch(e){ blob = f; }
+      }
+      const it = {
+        id: uid(), subjectId: state.subject.id, tab: state.tab,
+        title: f.name.replace(/\.[^.]+$/, ''), category: '',
+        kind, mime: blob.type || '', size: f.size, fileName: f.name,
+        blob, thumb, notes: [], createdAt: Date.now()
+      };
+      await dbPut('items', it);
+      state.items.push(it);
+    }
+    renderSidebar(); renderMain(); updateStats();
+    toast('✓ ' + t('mediaAdded'));
+  });
+}
+
+function gotoSubject(id){
+  const s = state.subjects.find(x => x.id === id); if (!s) return;
+  state.subject = s; state.query = ''; state.quick = null;
+  $('#searchInput').value = '';
+  $('#sidebar').classList.remove('open');
+  $('#backdrop').classList.remove('show');
+  renderSidebar(); renderMain();
+}
+async function deleteSubject(id){
+  const s = state.subjects.find(x => x.id === id); if (!s) return;
+  if (!confirm(t('confirmDeleteSubject'))) return;
+  const items = state.items.filter(i => i.subjectId === id);
+  for (const it of items){ await dbDel('items', it.id); revokeURL(it.id); }
+  await dbDel('subjects', id);
+  state.items = state.items.filter(i => i.subjectId !== id);
+  state.subjects = state.subjects.filter(x => x.id !== id);
+  state.shelves = state.shelves.filter(x => x.subjectId !== id);
+  if (state.subject && state.subject.id === id) state.subject = null;
+  renderSidebar(); renderMain(); updateStats();
+  toast('🗑️ ' + t('subjectDeleted'));
+}
+async function renameSubject(id){
+  const s = state.subjects.find(x => x.id === id); if (!s) return;
+  const n = prompt(t('subjectNamePrompt'), s.name);
+  if (n && n.trim()){
+    s.name = n.trim(); await dbPut('subjects', s);
+    renderSidebar(); renderMain();
+    toast('✓ ' + t('subjectRenamed'));
+  }
+}
+
+/* =========================================================
+   الانطلاق
+   ========================================================= */
+(function start(){
+  const initialLang = localStorage.getItem('madrasati-lang') || 'ar';
+  currentLang = initialLang;
+  document.documentElement.lang = initialLang;
+  document.documentElement.dir = (initialLang === 'ar') ? 'rtl' : 'ltr';
+  document.title = (initialLang === 'ar') ? 'مدرستي — منصتي التعليمية' : 'My School — Educational Platform';
+  $('#langLabel').textContent = (initialLang === 'ar') ? 'EN' : 'ع';
+
+  initThemes();
+  bindEvents();
+  initOffline();
+  renderUserAvatar();
+  boot();
+})();
+</script>
+</body>
+</html>
