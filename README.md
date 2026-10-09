@@ -31,6 +31,10 @@
 
 <br>
 
+**🌐 [English](README.en.md) | العربية**
+
+<br>
+
 ### 👉 [**اضغط هنا لدخول المنصة مباشرة**](https://ahmdschool.github.io/mdrsty/) 👈
 
 </div>
